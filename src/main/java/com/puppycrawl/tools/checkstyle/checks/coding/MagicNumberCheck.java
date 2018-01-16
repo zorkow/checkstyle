@@ -176,6 +176,9 @@ public class MagicNumberCheck extends AbstractCheck {
     /** Whether to ignore magic numbers in annotation. */
     private boolean ignoreAnnotation;
 
+    /** Whether to ignore magic numbers in test annotation. */
+    private boolean ignoreTestAnnotation;
+
     /** Whether to ignore magic numbers in field declaration. */
     private boolean ignoreFieldDeclaration;
 
@@ -209,6 +212,9 @@ public class MagicNumberCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
+        if (ignoreTestAnnotation && isInTestAnnotation(ast)) {
+            return;
+        }
         if ((!ignoreAnnotation || !isChildOf(ast, TokenTypes.ANNOTATION))
                 && !isInIgnoreList(ast)
                 && (!ignoreHashCodeMethod || !isInHashCodeMethod(ast))) {
@@ -419,6 +425,41 @@ public class MagicNumberCheck extends AbstractCheck {
      */
     public void setIgnoreAnnotation(boolean ignoreAnnotation) {
         this.ignoreAnnotation = ignoreAnnotation;
+    }
+
+    /**
+     * Set whether to ignore Test Annotations.
+     * @param ignoreTestAnnotation decide whether to ignore annotations
+     */
+    public void setIgnoreTestAnnotation(boolean ignoreTestAnnotation)
+    {
+        this.ignoreTestAnnotation = ignoreTestAnnotation;
+    }
+
+    /**
+     * Determines if the column displays a token type of annotation or
+     * annotation member
+     *
+     * @param ast the AST from which to search for annotations
+     *
+     * @return {@code true} if the token type for this node is a annotation
+     */
+    private boolean isInTestAnnotation(DetailAST ast)
+    {
+      final DetailAST methodDef = findContainingMethod(ast);
+      if (methodDef == null) {
+        return false;
+      }
+      final DetailAST modifiersNode = methodDef.findFirstToken(TokenTypes.MODIFIERS);
+      if (modifiersNode == null) {
+        return false;
+      }
+      final DetailAST annotationNode = modifiersNode.findFirstToken(TokenTypes.ANNOTATION);
+      if (annotationNode == null || annotationNode.getFirstChild() == null) {
+        return false;
+      }
+      final DetailAST testNode = annotationNode.getFirstChild().getNextSibling();
+      return testNode == null ? false : testNode.getText().equals("Test");
     }
 
     /**
