@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.anyObject;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,6 +38,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ ClassResolver.class, ClassResolverTest.class })
 public class ClassResolverTest {
+
     @Test
     public void testMisc() throws ClassNotFoundException {
         final Set<String> imports = new HashSet<>();
@@ -138,8 +139,8 @@ public class ClassResolverTest {
                 .currentThread().getContextClassLoader(), "", imports));
 
         PowerMockito.doThrow(new ClassNotFoundException("expected exception"))
-                .when(classResolver, "safeLoad", anyObject());
-        PowerMockito.doReturn(true).when(classResolver, "isLoadable", anyObject());
+                .when(classResolver, "safeLoad", any());
+        PowerMockito.doReturn(true).when(classResolver, "isLoadable", any());
 
         try {
             classResolver.resolve("someClass", "");
@@ -171,9 +172,10 @@ public class ClassResolverTest {
                 .currentThread().getContextClassLoader(), "", imports));
 
         PowerMockito.doThrow(new NoClassDefFoundError("expected exception"))
-                .when(classResolver, "safeLoad", anyObject());
+                .when(classResolver, "safeLoad", any());
 
         final boolean result = classResolver.isLoadable("someClass");
         assertFalse("result should be false", result);
     }
+
 }

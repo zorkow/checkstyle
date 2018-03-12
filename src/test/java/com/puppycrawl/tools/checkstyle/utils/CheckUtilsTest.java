@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,6 @@ package com.puppycrawl.tools.checkstyle.utils;
 
 import static com.puppycrawl.tools.checkstyle.internal.utils.TestUtil.findTokenInAstByPredicate;
 import static com.puppycrawl.tools.checkstyle.internal.utils.TestUtil.isUtilsClassHasPrivateConstructor;
-import static com.puppycrawl.tools.checkstyle.internal.utils.TestUtil.parseFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -37,6 +36,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractPathTestSupport;
+import com.puppycrawl.tools.checkstyle.JavaParser;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.checks.naming.AccessModifier;
@@ -370,7 +370,8 @@ public class CheckUtilsTest extends AbstractPathTestSupport {
     }
 
     private DetailAST getNodeFromFile(int type) throws Exception {
-        return getNode(parseFile(new File(getPath("InputCheckUtilsTest.java"))), type);
+        return getNode(JavaParser.parseFile(new File(getPath("InputCheckUtilsTest.java")),
+            JavaParser.Options.WITH_COMMENTS), type);
     }
 
     private static DetailAST getNode(DetailAST root, int type) {
@@ -383,4 +384,5 @@ public class CheckUtilsTest extends AbstractPathTestSupport {
 
         return node.get();
     }
+
 }

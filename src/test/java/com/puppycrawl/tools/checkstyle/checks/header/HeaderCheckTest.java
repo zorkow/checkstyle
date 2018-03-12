@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,7 @@ import static com.puppycrawl.tools.checkstyle.checks.header.HeaderCheck.MSG_MISS
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.anyObject;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.io.File;
 import java.io.IOException;
@@ -199,7 +199,7 @@ public class HeaderCheckTest extends AbstractModuleTestSupport {
     public void testIoExceptionWhenLoadingHeader() throws Exception {
         final HeaderCheck check = PowerMockito.spy(new HeaderCheck());
         PowerMockito.doThrow(new IOException("expected exception")).when(check, "loadHeader",
-                anyObject());
+                any());
 
         try {
             check.setHeader("header");
@@ -215,7 +215,7 @@ public class HeaderCheckTest extends AbstractModuleTestSupport {
     public void testIoExceptionWhenLoadingHeaderFile() throws Exception {
         final HeaderCheck check = PowerMockito.spy(new HeaderCheck());
         PowerMockito.doThrow(new IOException("expected exception")).when(check, "loadHeader",
-                anyObject());
+                any());
 
         check.setHeaderFile(CommonUtils.getUriByFilename(getPath("InputHeaderRegexp.java")));
 
@@ -248,7 +248,6 @@ public class HeaderCheckTest extends AbstractModuleTestSupport {
         verify(checkerConfig, getPath("InputHeader.java"), expected);
         // One more time to use cache.
         verify(checkerConfig, getPath("InputHeader.java"), expected);
-
     }
 
     @Test
@@ -289,4 +288,5 @@ public class HeaderCheckTest extends AbstractModuleTestSupport {
                     + "set either header or headerFile, not both", ex.getMessage());
         }
     }
+
 }

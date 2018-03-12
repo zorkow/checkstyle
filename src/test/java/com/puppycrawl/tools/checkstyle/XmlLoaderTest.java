@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -33,12 +33,14 @@ import org.powermock.reflect.Whitebox;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.sun.org.apache.xerces.internal.impl.Constants;
-
 public class XmlLoaderTest {
 
-    private static final String NAMESPACES_FEATURE =
-            Constants.SAX_FEATURE_PREFIX + Constants.NAMESPACES_FEATURE;
+    /**
+     * Copied from Constant. Watch section "sax features".
+     *
+     * @see com.sun.org.apache.xerces.internal.impl.Constants
+     */
+    private static final String NAMESPACES_FEATURE = "http://xml.org/sax/features/namespaces";
 
     @Test
     public void testParserConfiguredSuccessfully() throws Exception {
@@ -60,6 +62,7 @@ public class XmlLoaderTest {
                 throws SAXException, ParserConfigurationException {
             super(publicIdToResourceNameMap);
         }
+
     }
 
 }

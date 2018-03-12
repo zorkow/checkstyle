@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -25,8 +25,8 @@ import static java.util.Locale.ENGLISH;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.times;
 import static org.powermock.api.mockito.PowerMockito.doNothing;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -61,6 +61,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 @PrepareForTest(Closeables.class)
 public class NewlineAtEndOfFileCheckTest
     extends AbstractModuleTestSupport {
+
     @Override
     protected String getPackageLocation() {
         return "com/puppycrawl/tools/checkstyle/checks/newlineatendoffile";
@@ -99,7 +100,7 @@ public class NewlineAtEndOfFileCheckTest
                 getPath("InputNewlineAtEndOfFileLf.java"),
                 expected);
 
-        verifyStatic(times(1));
+        verifyStatic(Closeables.class, times(1));
         Closeables.close(any(RandomAccessFile.class), anyBoolean());
     }
 
@@ -265,4 +266,5 @@ public class NewlineAtEndOfFileCheckTest
             }
         }
     }
+
 }

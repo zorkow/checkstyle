@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -71,6 +71,13 @@ public class ConfigurationLoaderTest extends AbstractPathTestSupport {
         return ConfigurationLoader.loadConfiguration(fName, new PropertiesExpander(props));
     }
 
+    /**
+     * Non meaningful javadoc just to contain "noinspection" tag.
+     * Till https://youtrack.jetbrains.com/issue/IDEA-187209
+     * @return method class
+     * @throws Exception if smth wrong
+     * @noinspection JavaReflectionMemberAccess
+     */
     private static Method getReplacePropertiesMethod() throws Exception {
         final Class<?>[] params = new Class<?>[3];
         params[0] = String.class;
@@ -473,7 +480,6 @@ public class ConfigurationLoaderTest extends AbstractPathTestSupport {
             method.invoke(obj, "", "", "hello", null);
 
             fail("Exception is expected");
-
         }
         catch (InvocationTargetException ex) {
             assertTrue("Invalid exception cause",
@@ -527,7 +533,6 @@ public class ConfigurationLoaderTest extends AbstractPathTestSupport {
 
     @Test
     public void testConfigWithIgnore() throws Exception {
-
         final DefaultConfiguration config =
                 (DefaultConfiguration) ConfigurationLoader.loadConfiguration(
                         getPath("InputConfigurationLoaderModuleIgnoreSeverity.xml"),
@@ -539,7 +544,6 @@ public class ConfigurationLoaderTest extends AbstractPathTestSupport {
 
     @Test
     public void testConfigWithIgnoreUsingInputSource() throws Exception {
-
         final DefaultConfiguration config =
                 (DefaultConfiguration) ConfigurationLoader.loadConfiguration(new InputSource(
                         new File(getPath("InputConfigurationLoaderModuleIgnoreSeverity.xml"))
@@ -552,7 +556,6 @@ public class ConfigurationLoaderTest extends AbstractPathTestSupport {
 
     @Test
     public void testConfigCheckerWithIgnore() throws Exception {
-
         final DefaultConfiguration config =
                 (DefaultConfiguration) ConfigurationLoader.loadConfiguration(
                         getPath("InputConfigurationLoaderCheckerIgnoreSeverity.xml"),
@@ -617,15 +620,8 @@ public class ConfigurationLoaderTest extends AbstractPathTestSupport {
             0, children[0].getChildren().length);
     }
 
-    /**
-     * This SuppressWarning("unchecked") required to suppress
-     * "Unchecked generics array creation for varargs parameter" during mock.
-     * @throws Exception could happen from PowerMokito calls and getAttribute
-     */
-    @SuppressWarnings("unchecked")
     @Test
     public void testConfigWithIgnoreExceptionalAttributes() throws Exception {
-
         // emulate exception from unrelated code, but that is same try-catch
         final DefaultConfiguration tested = PowerMockito.mock(DefaultConfiguration.class);
         when(tested.getAttributeNames()).thenReturn(new String[] {"severity"});
@@ -687,4 +683,5 @@ public class ConfigurationLoaderTest extends AbstractPathTestSupport {
         final Configuration[] children = configuration1.getChildren();
         assertEquals("Unexpected children size", 1, children[0].getChildren().length);
     }
+
 }

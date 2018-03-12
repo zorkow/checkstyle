@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,6 @@ import java.util.regex.PatternSyntaxException;
 import com.puppycrawl.tools.checkstyle.TreeWalkerAuditEvent;
 import com.puppycrawl.tools.checkstyle.TreeWalkerFilter;
 import com.puppycrawl.tools.checkstyle.api.AutomaticBean;
-import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 import com.puppycrawl.tools.checkstyle.api.FileContents;
 import com.puppycrawl.tools.checkstyle.api.TextBlock;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
@@ -184,7 +183,7 @@ public class SuppressWithNearbyCommentFilter
     }
 
     @Override
-    protected void finishLocalSetup() throws CheckstyleException {
+    protected void finishLocalSetup() {
         // No code by default
     }
 
@@ -284,6 +283,7 @@ public class SuppressWithNearbyCommentFilter
      * A Tag holds a suppression comment and its location.
      */
     public static class Tag {
+
         /** The text of the tag. */
         private final String text;
 
@@ -425,5 +425,7 @@ public class SuppressWithNearbyCommentFilter
                     + ", tagMessageRegexp=" + tagMessageRegexp
                     + ']';
         }
+
     }
+
 }

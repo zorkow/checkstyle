@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -37,6 +37,7 @@ import org.junit.Test;
  * @noinspection ClassIndependentOfModule
  */
 public class AllTestsTest {
+
     @Test
     public void testAllInputsHaveTest() throws Exception {
         final Map<String, List<String>> allTests = new HashMap<>();
@@ -48,11 +49,11 @@ public class AllTestsTest {
 
         Assert.assertTrue("found tests", !allTests.keySet().isEmpty());
 
-        Files.walk(Paths.get("src/test/resources"))
+        Files.walk(Paths.get("src/test/resources/com/puppycrawl"))
             .forEach(filePath -> {
                 verifyInputFile(allTests, filePath.toFile());
             });
-        Files.walk(Paths.get("src/test/resources-noncompilable"))
+        Files.walk(Paths.get("src/test/resources-noncompilable/com/puppycrawl"))
             .forEach(filePath -> {
                 verifyInputFile(allTests, filePath.toFile());
             });
@@ -259,4 +260,5 @@ public class AllTestsTest {
     private static String getSimplePath(String path) {
         return path.substring(path.lastIndexOf("com" + File.separator + "puppycrawl"));
     }
+
 }

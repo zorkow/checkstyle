@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -44,6 +44,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 public class SuppressWarningsFilterTest
     extends AbstractModuleTestSupport {
+
     private static final String[] ALL_MESSAGES = {
         "16: " + getCheckMessage(JavadocTypeCheck.class, MSG_JAVADOC_MISSING),
         "17: " + getCheckMessage(JavadocTypeCheck.class, MSG_JAVADOC_MISSING),
@@ -202,4 +203,5 @@ public class SuppressWarningsFilterTest
         verifySuppressed(filterConfig, getPath("InputSuppressWarningsFilterById.java"),
                 expectedViolationMessages, suppressedViolationMessages);
     }
+
 }

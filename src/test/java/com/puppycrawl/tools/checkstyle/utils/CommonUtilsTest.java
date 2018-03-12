@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -183,7 +183,6 @@ public class CommonUtilsTest {
 
     @Test
     public void testBaseClassNameForSimpleName() {
-
         assertEquals("Invalid base class name", "Set",
             CommonUtils.baseClassName("Set"));
     }
@@ -431,7 +430,6 @@ public class CommonUtilsTest {
 
     @Test
     @PrepareForTest({ CommonUtils.class, CommonUtilsTest.class })
-    @SuppressWarnings("unchecked")
     public void testLoadSuppressionsUriSyntaxException() throws Exception {
         final URL configUrl = mock(URL.class);
 
@@ -468,12 +466,20 @@ public class CommonUtilsTest {
             CommonUtils.isInt(null));
     }
 
+    /**
+     * Non meaningful javadoc just to contain "noinspection" tag.
+     * Till https://youtrack.jetbrains.com/issue/IDEA-187210
+     * @noinspection JUnitTestClassNamingConvention
+     */
     private static class TestCloseable implements Closeable {
+
         private boolean closed;
 
         @Override
         public void close() {
             closed = true;
         }
+
     }
+
 }

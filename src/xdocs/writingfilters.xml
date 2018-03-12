@@ -23,20 +23,22 @@
 
     <section name="Overview">
       <p>
-        A <code>Checker</code> has a set of <code>Filter</code>s that decide which audit events the <code>Checker</code> reports through its listeners.  Interface
-        <code>Filter</code> and class <code>FilterSet</code> are intended to support general <code>AuditEvent</code> filtering using a set of <code>Filter</code>s.
+        A <code>Checker</code> has a set of <code>Filter</code>s that decide which audit events
+        the <code>Checker</code> reports through its listeners.  Interface <code>Filter</code>
+        and class <code>FilterSet</code> are intended to support general <code>AuditEvent</code>
+        filtering using a set of <code>Filter</code>s.
       </p>
 
       <p>
-        A <code>Filter</code> has <code>boolean</code> method <code>accept(AuditEvent)</code> that returns <code>true</code> if the <code>Filter</code>
-        accepts the <code>AuditEvent</code> parameter and returns
-        <code>false</code> if the <code>Filter</code> rejects it.
+        A <code>Filter</code> has <code>boolean</code> method <code>accept(AuditEvent)</code> that
+        returns <code>true</code> if the <code>Filter</code> accepts the <code>AuditEvent</code>
+        parameter and returns <code>false</code> if the <code>Filter</code> rejects it.
       </p>
 
       <p>
-        A <code>FilterSet</code> is a particular <code>Filter</code> that contains a set of <code>Filter</code>s. A <code>FilterSet</code>
-        accepts an <code>AuditEvent</code> if and only if all
-        <code>Filter</code>s in the set accept the <code>AuditEvent</code>.
+        A <code>FilterSet</code> is a particular <code>Filter</code> that contains a set of
+        <code>Filter</code>s. A <code>FilterSet</code> accepts an <code>AuditEvent</code> if and
+        only if all <code>Filter</code>s in the set accept the <code>AuditEvent</code>.
       </p>
 
       <p>
@@ -76,25 +78,25 @@ public class FilesFilter
     extends AutomaticBean
     implements Filter
 {
-    private Pattern mFileRegexp;
+  private Pattern mFileRegexp;
 
-    public FilesFilter()
-        throws PatternSyntaxException
-    {
-        setFiles("^$");
-    }
+  public FilesFilter()
+      throws PatternSyntaxException
+  {
+    setFiles("^$");
+  }
 
-    public boolean accept(AuditEvent aEvent)
-    {
-        final String fileName = aEvent.getFileName();
-        return ((fileName == null) || !mFileRegexp.matcher(fileName).find());
-    }
+  public boolean accept(AuditEvent aEvent)
+  {
+    final String fileName = aEvent.getFileName();
+    return ((fileName == null) || !mFileRegexp.matcher(fileName).find());
+  }
 
-    public void setFiles(String aFilesPattern)
-        throws PatternSyntaxException
-    {
-        mFileRegexp = Utils.getPattern(aFilesPattern);
-    }
+  public void setFiles(String aFilesPattern)
+      throws PatternSyntaxException
+  {
+    mFileRegexp = Utils.getPattern(aFilesPattern);
+  }
 }
       </source>
     </section>
@@ -119,7 +121,7 @@ public class FilesFilter
 
       <source>
 &lt;module name=&quot;com.mycompany.filters.FilesFilter&quot;&gt;
-    &lt;property name=&quot;files&quot; value=&quot;Generated&quot;/&gt;
+  &lt;property name=&quot;files&quot; value=&quot;Generated&quot;/&gt;
 &lt;/module&gt;
       </source>
     </section>

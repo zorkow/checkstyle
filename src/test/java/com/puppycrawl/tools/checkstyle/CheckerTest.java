@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -62,8 +62,8 @@ import java.util.stream.Collectors;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.mockito.internal.util.reflection.Whitebox;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.reflect.Whitebox;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.AbstractFileSetCheck;
@@ -212,7 +212,6 @@ public class CheckerTest extends AbstractModuleTestSupport {
         checker.fireErrors("Some File Name", messages);
         assertTrue("Checker.fireErrors() doesn't call listener", aa2.wasCalled());
         assertFalse("Checker.fireErrors() does call removed listener", auditAdapter.wasCalled());
-
     }
 
     @Test
@@ -273,7 +272,6 @@ public class CheckerTest extends AbstractModuleTestSupport {
         checker.fireErrors("Some File Name", messages);
         assertTrue("Checker.fireErrors() doesn't call filter", f2.wasCalled());
         assertFalse("Checker.fireErrors() does call removed filter", filter.wasCalled());
-
     }
 
     @Test
@@ -301,8 +299,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
 
         // comparing to 1 as there is only one legal file in input
         final int numLegalFiles = 1;
-        final PropertyCacheFile cache =
-                (PropertyCacheFile) Whitebox.getInternalState(checker, "cache");
+        final PropertyCacheFile cache = Whitebox.getInternalState(checker, "cacheFile");
         assertEquals("There were more legal files than expected",
                 numLegalFiles, counter);
         assertEquals("Audit was started on larger amount of files than expected",
@@ -391,7 +388,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
 
         checker.setModuleClassLoader(classLoader);
         checker.finishLocalSetup();
-        final Context actualCtx = (Context) Whitebox.getInternalState(checker, "childContext");
+        final Context actualCtx = Whitebox.getInternalState(checker, "childContext");
 
         assertNotNull("Default module factory should be created when it is not specified",
             actualCtx.get("moduleFactory"));
@@ -411,7 +408,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
         checker.setLocaleCountry("IT");
         checker.finishLocalSetup();
 
-        final Context context = (Context) Whitebox.getInternalState(checker, "childContext");
+        final Context context = Whitebox.getInternalState(checker, "childContext");
         assertEquals("Charset was different than expected",
                 System.getProperty("file.encoding", StandardCharsets.UTF_8.name()),
                 context.get("charset"));
@@ -447,7 +444,22 @@ public class CheckerTest extends AbstractModuleTestSupport {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
+    public void testSetupChildInvalidProperty() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(HiddenFieldCheck.class);
+        checkConfig.addAttribute("$$No such property", null);
+        try {
+            createChecker(checkConfig);
+            fail("Exception is expected");
+        }
+        catch (CheckstyleException ex) {
+            assertEquals("Error message is not expected",
+                    "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker"
+                        + " - Property '$$No such property' in module " + checkConfig.getName()
+                        + " does not exist, please check the documentation", ex.getMessage());
+        }
+    }
+
+    @Test
     public void testSetupChildListener() throws Exception {
         final Checker checker = new Checker();
         final PackageObjectFactory factory = new PackageObjectFactory(
@@ -458,11 +470,9 @@ public class CheckerTest extends AbstractModuleTestSupport {
             DebugAuditAdapter.class.getCanonicalName());
         checker.setupChild(config);
 
-        final List<AuditListener> listeners =
-            (List<AuditListener>) Whitebox.getInternalState(checker, "listeners");
+        final List<AuditListener> listeners = Whitebox.getInternalState(checker, "listeners");
         assertTrue("Invalid child listener class",
             listeners.get(listeners.size() - 1) instanceof DebugAuditAdapter);
-
     }
 
     @Test
@@ -618,8 +628,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
         checker.process(Collections.singletonList(new File("dummy.java")));
         checker.clearCache();
         // invoke destroy to persist cache
-        final PropertyCacheFile cache =
-                (PropertyCacheFile) Whitebox.getInternalState(checker, "cache");
+        final PropertyCacheFile cache = Whitebox.getInternalState(checker, "cacheFile");
         cache.persist();
 
         final Properties cacheAfterClear = new Properties();
@@ -633,8 +642,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
     public void setFileExtension() {
         final Checker checker = new Checker();
         checker.setFileExtensions(".test1", "test2");
-        final String[] actual =
-                (String[]) Whitebox.getInternalState(checker, "fileExtensions");
+        final String[] actual = Whitebox.getInternalState(checker, "fileExtensions");
         assertArrayEquals("Extensions are not expected",
                 new String[] {".test1", ".test2"}, actual);
     }
@@ -646,7 +654,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
         final Checker checker = new Checker();
         checker.clearCache();
         assertNull("If cache file is not set the cache should default to null",
-            Whitebox.getInternalState(checker, "cache"));
+            Whitebox.getInternalState(checker, "cacheFile"));
     }
 
     @Test
@@ -732,7 +740,6 @@ public class CheckerTest extends AbstractModuleTestSupport {
     @Test
     public void testCacheAndCheckWhichAddsNewResourceLocationButKeepsSameCheckerInstance()
             throws Exception {
-
         // Use case (https://github.com/checkstyle/checkstyle/pull/3092#issuecomment-218162436):
         // Imagine that cache exists in a file. New version of Checkstyle appear.
         // New release contains update to a some check to have additional external resource.
@@ -847,6 +854,21 @@ public class CheckerTest extends AbstractModuleTestSupport {
 
             assertNotNull("suppressed violation file saved in cache",
                     details.getProperty(fileViolationPath));
+        }
+    }
+
+    @Test
+    public void testHaltOnException() throws Exception {
+        final DefaultConfiguration checkConfig =
+            createModuleConfig(CheckWhichThrowsError.class);
+        final String filePath = getPath("InputChecker.java");
+        try {
+            verify(checkConfig, filePath);
+            fail("Exception is expected");
+        }
+        catch (CheckstyleException ex) {
+            assertEquals("Error message is not expected",
+                    "Exception was thrown while processing " + filePath, ex.getMessage());
         }
     }
 
@@ -1019,8 +1041,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
         checker.configure(root);
         // BriefUtLogger does not print the module name or id postfix,
         // so we need to set logger manually
-        final ByteArrayOutputStream out =
-                (ByteArrayOutputStream) Whitebox.getInternalState(this, "stream");
+        final ByteArrayOutputStream out = Whitebox.getInternalState(this, "stream");
         final DefaultLogger logger =
                 new DefaultLogger(out, true, out, false, new AuditEventDefaultFormatter());
         checker.addListener(logger);
@@ -1066,13 +1087,14 @@ public class CheckerTest extends AbstractModuleTestSupport {
         public boolean accept(AuditEvent event) {
             return false;
         }
+
     }
 
     private static class DummyFileSetViolationCheck extends AbstractFileSetCheck
         implements ExternalResourceHolder {
 
         @Override
-        protected void processFiltered(File file, FileText fileText) throws CheckstyleException {
+        protected void processFiltered(File file, FileText fileText) {
             log(0, "test");
         }
 
@@ -1082,6 +1104,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
             externalResourceLocation.add("non_existent_external_resource.xml");
             return externalResourceLocation;
         }
+
     }
 
     private static class DummyFilterSet extends FilterSet implements ExternalResourceHolder {
@@ -1092,6 +1115,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
             strings.add("test");
             return strings;
         }
+
     }
 
     private static class DynamicalResourceHolderCheck extends AbstractFileSetCheck
@@ -1109,7 +1133,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
         }
 
         @Override
-        protected void processFiltered(File file, FileText fileText) throws CheckstyleException {
+        protected void processFiltered(File file, FileText fileText) {
             // there is no need in implementation of the method
         }
 
@@ -1123,6 +1147,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
             }
             return locations;
         }
+
     }
 
     private static class CheckWhichDoesNotRequireCommentNodes extends AbstractCheck {
@@ -1176,6 +1201,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
                 log(ast, msg);
             }
         }
+
     }
 
     private static class CheckWhichRequiresCommentNodes extends AbstractCheck {
@@ -1232,6 +1258,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
                 log(ast, msg);
             }
         }
+
     }
 
     private static class CheckWhichThrowsError extends AbstractCheck {
@@ -1255,6 +1282,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
         public void visitToken(DetailAST ast) {
             throw new IndexOutOfBoundsException("test");
         }
+
     }
 
     private static class DummyFileSet extends AbstractFileSetCheck {
@@ -1282,7 +1310,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
         }
 
         @Override
-        protected void processFiltered(File file, FileText fileText) throws CheckstyleException {
+        protected void processFiltered(File file, FileText fileText) {
             methodCalls.add("processFiltered");
         }
 
@@ -1303,5 +1331,7 @@ public class CheckerTest extends AbstractModuleTestSupport {
         public MessageDispatcher getInternalMessageDispatcher() {
             return getMessageDispatcher();
         }
+
     }
+
 }

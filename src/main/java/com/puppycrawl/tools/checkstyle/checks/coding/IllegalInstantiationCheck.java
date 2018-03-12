@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -85,7 +85,7 @@ public class IllegalInstantiationCheck
     private final Set<DetailAST> instantiations = new HashSet<>();
 
     /** Set of fully qualified class names. E.g. "java.lang.Boolean" */
-    private Set<String> illegalClasses = new HashSet<>();
+    private Set<String> classes = new HashSet<>();
 
     /** Name of the package. */
     private String pkgName;
@@ -222,7 +222,7 @@ public class IllegalInstantiationCheck
     private String getIllegalInstantiation(String className) {
         String fullClassName = null;
 
-        if (illegalClasses.contains(className)) {
+        if (classes.contains(className)) {
             fullClassName = className;
         }
         else {
@@ -235,7 +235,7 @@ public class IllegalInstantiationCheck
                 pkgNameLen = pkgName.length();
             }
 
-            for (String illegal : illegalClasses) {
+            for (String illegal : classes) {
                 if (isStandardClass(className, illegal)
                         || isSamePackage(className, pkgNameLen, illegal)) {
                     fullClassName = illegal;
@@ -267,7 +267,7 @@ public class IllegalInstantiationCheck
                         + className;
             }
             if (CommonUtils.baseClassName(importArg).equals(className)
-                    && illegalClasses.contains(importArg)) {
+                    && classes.contains(importArg)) {
                 illegalType = importArg;
                 break;
             }
@@ -353,6 +353,7 @@ public class IllegalInstantiationCheck
      * @param names a comma separate list of class names
      */
     public void setClasses(String... names) {
-        illegalClasses = Arrays.stream(names).collect(Collectors.toSet());
+        classes = Arrays.stream(names).collect(Collectors.toSet());
     }
+
 }

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -45,7 +45,7 @@ import org.powermock.reflect.Whitebox;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.TreeWalker;
+import com.puppycrawl.tools.checkstyle.JavaParser;
 import com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
@@ -54,6 +54,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * @author Oliver Burn
  */
 public class DetailASTTest extends AbstractModuleTestSupport {
+
     @Rule
     public final TemporaryFolder temporaryFolder = new TemporaryFolder();
 
@@ -292,10 +293,8 @@ public class DetailASTTest extends AbstractModuleTestSupport {
     }
 
     private static void checkFile(String filename) throws Exception {
-        final FileText text = new FileText(new File(filename),
-                           System.getProperty("file.encoding", StandardCharsets.UTF_8.name()));
-        final FileContents contents = new FileContents(text);
-        final DetailAST rootAST = TreeWalker.parse(contents);
+        final DetailAST rootAST =
+            JavaParser.parseFile(new File(filename), JavaParser.Options.WITHOUT_COMMENTS);
         if (rootAST != null) {
             checkTree(filename, rootAST);
         }
@@ -348,4 +347,5 @@ public class DetailASTTest extends AbstractModuleTestSupport {
         final String badPrevMsg = badPrevFormatter.format(params);
         assertEquals(badPrevMsg, prev, node.getPreviousSibling());
     }
+
 }

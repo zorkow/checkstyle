@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -28,10 +28,10 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.internal.util.reflection.Whitebox;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 
 import antlr.CommonHiddenStreamToken;
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
@@ -44,6 +44,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(ImportOrderOption.class)
 public class ImportOrderCheckTest extends AbstractModuleTestSupport {
+
     @Override
     protected String getPackageLocation() {
         return "com/puppycrawl/tools/checkstyle/checks/imports/importorder";
@@ -72,7 +73,7 @@ public class ImportOrderCheckTest extends AbstractModuleTestSupport {
                     "sun.tools.util.ModifierFilter.ALL_ACCESS"),
         };
 
-        verify(checkConfig, getPath("InputImportOrder.java"), expected);
+        verify(checkConfig, getNonCompilablePath("InputImportOrder.java"), expected);
     }
 
     @Test
@@ -89,7 +90,7 @@ public class ImportOrderCheckTest extends AbstractModuleTestSupport {
                     "sun.tools.util.ModifierFilter.ALL_ACCESS"),
         };
 
-        verify(checkConfig, getPath("InputImportOrder.java"), expected);
+        verify(checkConfig, getNonCompilablePath("InputImportOrder.java"), expected);
     }
 
     @Test
@@ -103,7 +104,7 @@ public class ImportOrderCheckTest extends AbstractModuleTestSupport {
                     "sun.tools.util.ModifierFilter.ALL_ACCESS"),
         };
 
-        verify(checkConfig, getPath("InputImportOrder.java"), expected);
+        verify(checkConfig, getNonCompilablePath("InputImportOrder.java"), expected);
     }
 
     @Test
@@ -118,7 +119,7 @@ public class ImportOrderCheckTest extends AbstractModuleTestSupport {
             "16: " + getCheckMessage(MSG_ORDERING, "javax.swing.WindowConstants.*"),
         };
 
-        verify(checkConfig, getPath("InputImportOrder.java"), expected);
+        verify(checkConfig, getNonCompilablePath("InputImportOrder.java"), expected);
     }
 
     @Test
@@ -699,7 +700,8 @@ public class ImportOrderCheckTest extends AbstractModuleTestSupport {
         checkConfig.addAttribute("sortStaticImportsAlphabetically", "true");
         final String[] expected = CommonUtils.EMPTY_STRING_ARRAY;
 
-        verify(checkConfig, getPath("InputImportOrder_EclipseDefaultPositive.java"), expected);
+        verify(checkConfig,
+            getNonCompilablePath("InputImportOrder_EclipseDefaultPositive.java"), expected);
     }
 
     @Test
@@ -732,7 +734,8 @@ public class ImportOrderCheckTest extends AbstractModuleTestSupport {
             "17: " + getCheckMessage(MSG_ORDERING, "org.junit.Test"),
             };
 
-        verify(checkConfig, getPath("InputImportOrder_EclipseDefaultNegative.java"), expected);
+        verify(checkConfig,
+            getNonCompilablePath("InputImportOrder_EclipseDefaultNegative.java"), expected);
     }
 
     @Test
@@ -795,4 +798,5 @@ public class ImportOrderCheckTest extends AbstractModuleTestSupport {
         verify(checkConfig, getNonCompilablePath("InputImportOrder_MultiplePatternMatches.java"),
                 expected);
     }
+
 }

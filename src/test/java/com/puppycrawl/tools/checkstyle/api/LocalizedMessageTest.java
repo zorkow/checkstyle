@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -24,8 +24,8 @@ import static com.puppycrawl.tools.checkstyle.utils.CommonUtils.EMPTY_OBJECT_ARR
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyObject;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -98,7 +98,7 @@ public class LocalizedMessageTest {
         final InputStream inputStreamMock = mock(InputStream.class);
         when(classloader.getResource(resource)).thenReturn(url);
         when(mockUrlCon.getInputStream()).thenReturn(inputStreamMock);
-        when(inputStreamMock.read(anyObject(), anyInt(), anyInt())).thenReturn(-1);
+        when(inputStreamMock.read(any(), anyInt(), anyInt())).thenReturn(-1);
 
         final LocalizedMessage.Utf8Control control = new LocalizedMessage.Utf8Control();
         control.newBundle("com.puppycrawl.tools.checkstyle.checks.coding.messages",
@@ -111,7 +111,6 @@ public class LocalizedMessageTest {
 
     @Test
     public void testBundleReloadUrlNotNullStreamNull() throws IOException {
-
         final ClassLoader classloader = mock(ClassLoader.class);
         final String resource =
             "com/puppycrawl/tools/checkstyle/checks/coding/messages_en.properties";
@@ -258,4 +257,5 @@ public class LocalizedMessageTest {
         LocalizedMessage.clearCache();
         LocalizedMessage.setLocale(DEFAULT_LOCALE);
     }
+
 }

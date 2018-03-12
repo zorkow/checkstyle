@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -139,25 +139,30 @@ public class AbstractFileSetCheckTest {
     }
 
     private static class DummyFileSetCheck extends AbstractFileSetCheck {
+
         private static final String MSG_KEY = "File should not be empty.";
 
         @Override
-        protected void processFiltered(File file, FileText fileText) throws CheckstyleException {
+        protected void processFiltered(File file, FileText fileText) {
             if (fileText.size() == 0) {
                 log(1, MSG_KEY);
             }
         }
+
     }
 
     private static class ExceptionFileSetCheck extends AbstractFileSetCheck {
+
         private static final String MSG_KEY = "Test.";
         private int count = 1;
 
         @Override
-        protected void processFiltered(File file, FileText fileText) throws CheckstyleException {
+        protected void processFiltered(File file, FileText fileText) {
             log(count, MSG_KEY);
             count++;
             throw new IllegalArgumentException("Test");
         }
+
     }
+
 }

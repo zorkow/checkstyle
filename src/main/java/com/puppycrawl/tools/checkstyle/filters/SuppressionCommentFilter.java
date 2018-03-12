@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -32,7 +32,6 @@ import java.util.regex.PatternSyntaxException;
 import com.puppycrawl.tools.checkstyle.TreeWalkerAuditEvent;
 import com.puppycrawl.tools.checkstyle.TreeWalkerFilter;
 import com.puppycrawl.tools.checkstyle.api.AutomaticBean;
-import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 import com.puppycrawl.tools.checkstyle.api.FileContents;
 import com.puppycrawl.tools.checkstyle.api.TextBlock;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
@@ -61,6 +60,7 @@ public class SuppressionCommentFilter
      * Enum to be used for switching checkstyle reporting for tags.
      */
     public enum TagType {
+
         /**
          * Switch reporting on.
          */
@@ -69,6 +69,7 @@ public class SuppressionCommentFilter
          * Switch reporting off.
          */
         OFF
+
     }
 
     /** Turns checkstyle reporting off. */
@@ -180,7 +181,7 @@ public class SuppressionCommentFilter
     }
 
     @Override
-    protected void finishLocalSetup() throws CheckstyleException {
+    protected void finishLocalSetup() {
         // No code by default
     }
 
@@ -297,6 +298,7 @@ public class SuppressionCommentFilter
      */
     public static class Tag
         implements Comparable<Tag> {
+
         /** The text of the tag. */
         private final String text;
 
@@ -471,5 +473,7 @@ public class SuppressionCommentFilter
                     + ", tagCheckRegexp=" + tagCheckRegexp
                     + ", tagMessageRegexp=" + tagMessageRegexp + ']';
         }
+
     }
+
 }

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.powermock.api.mockito.PowerMockito.doNothing;
@@ -36,7 +36,6 @@ import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -74,6 +73,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Closeables.class)
 public class TranslationCheckTest extends AbstractXmlTestSupport {
+
     @Captor
     private ArgumentCaptor<SortedSet<LocalizedMessage>> captor;
 
@@ -408,8 +408,8 @@ public class TranslationCheckTest extends AbstractXmlTestSupport {
             propertyFiles,
             getPath(""),
             expected);
-        verifyStatic(times(2));
-        Closeables.closeQuietly(any(FileInputStream.class));
+        verifyStatic(Closeables.class, times(2));
+        Closeables.closeQuietly(any(InputStream.class));
     }
 
     @Test
@@ -564,4 +564,5 @@ public class TranslationCheckTest extends AbstractXmlTestSupport {
                     exceptionMessage, endsWith("[TranslationCheck]"));
         }
     }
+
 }

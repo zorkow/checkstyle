@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -26,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public abstract class AbstractPathTestSupport {
+
     protected static final String LF_REGEX = "\\\\n";
 
     protected static final String CRLF_REGEX = "\\\\r\\\\n";
@@ -64,4 +65,5 @@ public abstract class AbstractPathTestSupport {
                 Paths.get(filename)), StandardCharsets.UTF_8)
                 .replaceAll(CRLF_REGEX, LF_REGEX);
     }
+
 }

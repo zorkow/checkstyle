@@ -57,8 +57,8 @@ no-error-hibernate-search)
   echo CS_version: ${CS_POM_VERSION}
   for i in 1 2 3 4 5; do git clone https://github.com/hibernate/hibernate-search.git && break || sleep 15; done
   cd hibernate-search
-  mvn -e -s settings-example.xml clean install -DskipTests=true -Dtest.elasticsearch.host.provided=true -Dpuppycrawl.checkstyle.version=${CS_POM_VERSION}
-  mvn -e -s settings-example.xml checkstyle:check  -Dpuppycrawl.checkstyle.version=${CS_POM_VERSION}
+  mvn -e clean install -DskipTests=true -Dtest.elasticsearch.host.provided=true -Dcheckstyle.skip=true -Dforbiddenapis.skip=true -Dpuppycrawl.checkstyle.version=${CS_POM_VERSION}
+  mvn -e checkstyle:check  -Dpuppycrawl.checkstyle.version=${CS_POM_VERSION}
   cd ../
   rm -rf hibernate-search
   ;;
@@ -80,7 +80,7 @@ no-error-checkstyles-sevntu)
   set -e
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
-  mvn -e compile verify -Dmaven.sevntu-checkstyle-check.checkstyle.version=${CS_POM_VERSION} -Dmaven.test.skip=true -Dcheckstyle.ant.skip=true -Dpmd.skip=true -Dfindbugs.skip=true -Dcobertura.skip=true -Dforbiddenapis.skip=true -Dxml.skip=true
+  mvn -e compile verify -Dmaven.sevntu-checkstyle-check.checkstyle.version=${CS_POM_VERSION} -Dmaven.test.skip=true -Dcheckstyle.ant.skip=true -Dpmd.skip=true -Dfindbugs.skip=true -Dspotbugs.skip=true -Dcobertura.skip=true -Dforbiddenapis.skip=true -Dxml.skip=true
   ;;
 
 no-error-sevntu-checks)
@@ -90,6 +90,8 @@ no-error-sevntu-checks)
   for i in 1 2 3 4 5; do git clone https://github.com/sevntu-checkstyle/sevntu.checkstyle && break || sleep 15; done
   cd sevntu.checkstyle/sevntu-checks
   mvn -e -Pno-validations verify  -Dcheckstyle.skip=false -Dcheckstyle.version=${CS_POM_VERSION} -Dcheckstyle.configLocation=../../config/checkstyle_checks.xml
+  cd ../../
+  rm -rf sevntu.checkstyle
   ;;
 
 no-exception-struts)

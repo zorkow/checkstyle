@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,6 @@ import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.AutomaticBean;
-import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 import com.puppycrawl.tools.checkstyle.api.LocalizedMessage;
 import com.puppycrawl.tools.checkstyle.api.SeverityLevel;
 import com.puppycrawl.tools.checkstyle.internal.utils.CloseAndFlushTestByteArrayOutputStream;
@@ -42,6 +41,7 @@ import com.puppycrawl.tools.checkstyle.internal.utils.CloseAndFlushTestByteArray
  */
 // -@cs[AbbreviationAsWordInName] Test should be named as its main class.
 public class XMLLoggerTest extends AbstractXmlTestSupport {
+
     private final CloseAndFlushTestByteArrayOutputStream outStream =
         new CloseAndFlushTestByteArrayOutputStream();
 
@@ -345,7 +345,7 @@ public class XMLLoggerTest extends AbstractXmlTestSupport {
     }
 
     @Test
-    public void testFinishLocalSetup() throws CheckstyleException {
+    public void testFinishLocalSetup() {
         final XMLLogger logger = new XMLLogger(outStream, true);
         logger.finishLocalSetup();
         logger.auditStarted(null);
@@ -365,5 +365,7 @@ public class XMLLoggerTest extends AbstractXmlTestSupport {
         public void printStackTrace(PrintWriter printWriter) {
             printWriter.print("stackTrace\r\nexample");
         }
+
     }
+
 }

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,6 @@ package com.puppycrawl.tools.checkstyle.internal.testmodules;
 import java.io.File;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractFileSetCheck;
-import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 import com.puppycrawl.tools.checkstyle.api.FileText;
 
 /**
@@ -30,10 +29,11 @@ import com.puppycrawl.tools.checkstyle.api.FileText;
  * @noinspection ClassOnlyUsedInOnePackage
  */
 public class TestFileSetCheck extends AbstractFileSetCheck {
+
     private boolean called;
 
     @Override
-    protected void processFiltered(File file, FileText fileText) throws CheckstyleException {
+    protected void processFiltered(File file, FileText fileText) {
         called = true;
     }
 
@@ -51,4 +51,5 @@ public class TestFileSetCheck extends AbstractFileSetCheck {
     public void resetCheck() {
         called = false;
     }
+
 }

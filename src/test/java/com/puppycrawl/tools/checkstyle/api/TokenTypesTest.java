@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,11 +23,38 @@ import static com.puppycrawl.tools.checkstyle.internal.utils.TestUtil.isUtilsCla
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
 public class TokenTypesTest {
+
+    @Test
+    public void testAllTokenTypesHasDescription() {
+        final String tokenTypes = "com.puppycrawl.tools.checkstyle.api.tokentypes";
+        final ResourceBundle bundle = ResourceBundle.getBundle(tokenTypes, Locale.ROOT);
+
+        final Set<String> expected = Arrays.stream(TokenUtils.getAllTokenIds())
+            .mapToObj(TokenUtils::getTokenName).collect(Collectors.toSet());
+        final Set<String> actual = bundle.keySet();
+        assertEquals("TokenTypes without description", expected, actual);
+    }
+
+    @Test
+    public void testAllDescriptionsEndsWithPeriod() {
+        final Set<String> badDescriptions = Arrays.stream(TokenUtils.getAllTokenIds())
+            .mapToObj(TokenUtils::getTokenName).map(TokenUtils::getShortDescription)
+            .filter(desc -> desc.charAt(desc.length() - 1) != '.').collect(Collectors.toSet());
+        assertEquals("Malformed TokenType descriptions", Collections.emptySet(), badDescriptions);
+    }
+
     @Test
     public void testGetShortDescription() {
         assertEquals("short description for EQUAL",
@@ -35,23 +62,23 @@ public class TokenTypesTest {
                 TokenUtils.getShortDescription("EQUAL"));
 
         assertEquals("short description for LAND",
-                "The <code>&amp;&amp;</code> (conditional AND) operator.",
+                "The <code>&&</code> (conditional AND) operator.",
                 TokenUtils.getShortDescription("LAND"));
 
         assertEquals("short description for LCURLY",
-                "A left (curly) brace (<code>&#123;</code>).",
+                "A left curly brace (<code>{</code>).",
                 TokenUtils.getShortDescription("LCURLY"));
 
         assertEquals("short description for SR_ASSIGN",
-                "The <code>&gt;&gt;=</code> (signed right shift assignment)",
+                "The <code>>>=</code> (signed right shift assignment) operator.",
                 TokenUtils.getShortDescription("SR_ASSIGN"));
 
         assertEquals("short description for SL",
-                "The <code>&lt;&lt;</code> (shift left) operator.",
+                "The <code><<</code> (shift left) operator.",
                 TokenUtils.getShortDescription("SL"));
 
         assertEquals("short description for BSR",
-                "The <code>&gt;&gt;&gt;</code> (unsigned shift right) operator.",
+                "The <code>>>></code> (unsigned shift right) operator.",
                 TokenUtils.getShortDescription("BSR"));
     }
 
@@ -60,4 +87,5 @@ public class TokenTypesTest {
         assertTrue("Constructor is not private",
                 isUtilsClassHasPrivateConstructor(TokenTypes.class, true));
     }
+
 }

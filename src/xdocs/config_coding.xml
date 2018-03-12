@@ -30,9 +30,9 @@
         <source>
 int[] a = new int[]
 {
-    1,
-    2,
-    3,
+  1,
+  2,
+  3,
 };
         </source>
 
@@ -43,9 +43,9 @@ int[] a = new int[]
         <source>
 return new int[] { 0 };
 return new int[] { 0
-    };
+  };
 return new int[] {
-    0 };
+  0 };
         </source>
 
         <p>
@@ -55,14 +55,14 @@ return new int[] {
         </p>
         <source>
 {
-    100000000000000000000,
-    200000000000000000000, // OK
+  100000000000000000000,
+  200000000000000000000, // OK
 }
 
 {
-    100000000000000000000,
-    200000000000000000000,
-    300000000000000000000,  // Just this line added, no other changes
+  100000000000000000000,
+  200000000000000000000,
+  300000000000000000000,  // Just this line added, no other changes
 }
         </source>
         <p>
@@ -72,11 +72,11 @@ return new int[] {
         </p>
         <source>
 {100000000000000000000,
-    200000000000000000000,} // Trailing comma not needed, line needs to be modified anyway
+ 200000000000000000000,} // Trailing comma not needed, line needs to be modified anyway
 
 {100000000000000000000,
-    200000000000000000000, // Modified line
-    300000000000000000000,} // Added line
+ 200000000000000000000, // Modified line
+ 300000000000000000000,} // Added line
         </source>
         <p>
           If opening brace is on the same line as training comma there's also (more arguable) problem:
@@ -86,7 +86,7 @@ return new int[] {
 }
 
 {100000000000000000000,
-    100000000000000000001, // More work needed to duplicate
+ 100000000000000000001, // More work needed to duplicate
 }
         </source>
       </subsection>
@@ -96,43 +96,43 @@ return new int[] {
           To configure the check:
           </p>
           <source>
-            &lt;module name=&quot;ArrayTrailingComma&quot;/&gt;
+&lt;module name=&quot;ArrayTrailingComma&quot;/&gt;
           </source>
           <p>
             Which results in the following violations:
           </p>
           <source>
-            int[] numbers = {1, 2, 3};        //no violation
-            boolean[] bools = {
-            true,
-            true,
-            false
-            };        //violation
+int[] numbers = {1, 2, 3};        //no violation
+boolean[] bools = {
+true,
+true,
+false
+};        //violation
 
-            String[][] text = {{},{},};        //no violation
+String[][] text = {{},{},};        //no violation
 
-            double[][] decimals = {
-            {0.5, 2.3, 1.1,},        //no violation
-            {1.7, 1.9, 0.6},
-            {0.8, 7.4, 6.5}
-            };        // violation as previous line misses a comma
+double[][] decimals = {
+{0.5, 2.3, 1.1,},        //no violation
+{1.7, 1.9, 0.6},
+{0.8, 7.4, 6.5}
+};        // violation as previous line misses a comma
 
-            char[] chars = {'a', 'b', 'c'
-                };        / /no violation
+char[] chars = {'a', 'b', 'c'
+  };        / /no violation
 
-            String[] letters = {
-                "a", "b", "c"};        // no violation
+String[] letters = {
+  "a", "b", "c"};        // no violation
 
-            int[] a1 = new int[]{
-                1,
-                2
-                ,
-            };        // no violation
+int[] a1 = new int[]{
+  1,
+  2
+  ,
+};        // no violation
 
-            int[] a2 = new int[]{
-                1,
-                2
-                ,};        // no violation
+int[] a2 = new int[]{
+  1,
+  2
+  ,};        // no violation
           </source>
       </subsection>
 
@@ -299,9 +299,9 @@ public boolean equals(Foo obj) {...}
           For example:
           <source>
 class Test {
-    public boolean equals(Test i) {  // violation
-        return false;
-    }
+  public boolean equals(Test i) {  // violation
+    return false;
+  }
 }
           </source>
         </p>
@@ -309,13 +309,13 @@ class Test {
           The same class without violations:
           <source>
 class Test {
-    public boolean equals(Test i) {  // no violation
-        return false;
-    }
+  public boolean equals(Test i) {  // no violation
+    return false;
+  }
 
-    public boolean equals(Object i) {
-       return false;
-    }
+  public boolean equals(Object i) {
+    return false;
+  }
 }
           </source>
         </p>
@@ -383,7 +383,8 @@ class Test {
         </ol>
 
         <p>
-          Purpose of <b>ignore*</b> option is to ignore related violations, however it still impacts on other class members.
+          Purpose of <b>ignore*</b> option is to ignore related violations,
+          however it still impacts on other class members.
         </p>
 
         <p>
@@ -393,9 +394,9 @@ class Test {
           detect user intention of fields location and grouping. For example,
           <source>
 public class A {
-    private double x = 1.0;
-    private double y = 2.0;
-    public double slope = x / y; // will be skipped from validation due to forward reference
+  private double x = 1.0;
+  private double y = 2.0;
+  public double slope = x / y; // will be skipped from validation due to forward reference
 }
           </source>
         </p>
@@ -438,33 +439,33 @@ public class A {
         <p>
         For example:
         <source>
-            class K {
-                int a;
-                void m(){}
-                K(){}  &lt;-- "Constructor definition in wrong order"
-                int b; &lt;-- "Instance variable definition in wrong order"
-            }
+class K {
+  int a;
+  void m(){}
+  K(){}  &lt;-- "Constructor definition in wrong order"
+  int b; &lt;-- "Instance variable definition in wrong order"
+}
         </source>
         </p>
         <p>
         With <b>ignoreConstructors</b> option:
         <source>
-            class K {
-                int a;
-                void m(){}
-                K(){}
-                int b; &lt;-- "Instance variable definition in wrong order"
-            }
+class K {
+  int a;
+  void m(){}
+  K(){}
+  int b; &lt;-- "Instance variable definition in wrong order"
+}
         </source>
         </p>
         <p>
         With <b>ignoreConstructors</b> option and without a method definition in a source class:
         <source>
-            class K {
-                int a;
-                K(){}
-                int b; &lt;-- "Instance variable definition in wrong order"
-            }
+class K {
+  int a;
+  K(){}
+  int b; &lt;-- "Instance variable definition in wrong order"
+}
         </source>
         </p>
       </subsection>
@@ -560,7 +561,7 @@ public class A {
         </p>
         <source>
 &lt;module name=&quot;DefaultComesLast&quot;&gt;
-    &lt;property name=&quot;skipIfLastAndSharedWithCase&quot; value=&quot;true&quot;/&gt;
+  &lt;property name=&quot;skipIfLastAndSharedWithCase&quot; value=&quot;true&quot;/&gt;
 &lt;/module&gt;
         </source>
         <p>
@@ -568,20 +569,20 @@ public class A {
         </p>
         <source>
 switch (i) {
-    case 1:
-        break;
-    case 2:
-    default: // No violation with the new option is expected
-        break;
-    case 3:
-        break;
+  case 1:
+    break;
+  case 2:
+  default: // No violation with the new option is expected
+    break;
+  case 3:
+    break;
 }
 switch (i) {
-    case 1:
-        break;
-    default: // violation with the new option is expected
-    case 2:
-        break;
+  case 1:
+    break;
+  default: // violation with the new option is expected
+  case 2:
+    break;
 }
         </source>
       </subsection>
@@ -797,9 +798,9 @@ String nullString = null;
         <p>
           Rationale: The contract of <code>equals()</code> and
           <code>hashCode()</code> requires that equal objects
-          have the same hashCode. Therefore, whenever you override <code>equals()</code> you must override <code>
-          hashCode()</code> to ensure that your class can be used in
-          hash-based collections.
+          have the same hashCode. Therefore, whenever you override
+          <code>equals()</code> you must override <code>hashCode()</code>
+          to ensure that your class can be used in hash-based collections.
         </p>
       </subsection>
 
@@ -911,37 +912,37 @@ String nullString = null;
         </p>
         <source>
 &lt;module name=&quot;ExplicitInitialization&quot;&gt;
-    &lt;property name=&quot;onlyObjectReferences&quot; value=&quot;true&quot;/&gt;
+  &lt;property name=&quot;onlyObjectReferences&quot; value=&quot;true&quot;/&gt;
 &lt;/module&gt;
         </source>
         <p>Example:</p>
         <p>
           <source>
-            public class Test {
-              private int a = 0;
-              private int b = 1;
-              private int c = 2;
+public class Test {
+  private int a = 0;
+  private int b = 1;
+  private int c = 2;
 
-              private boolean a = true;
-              private boolean b = false;
-              private boolean c = true;
-              private boolean d = false;
-              private boolean e = false;
+  private boolean a = true;
+  private boolean b = false;
+  private boolean c = true;
+  private boolean d = false;
+  private boolean e = false;
 
-              private A a = new A();
-              private A b = null; // violation
-              private C c = null; // violation
-              private D d = new D();
+  private A a = new A();
+  private A b = null; // violation
+  private C c = null; // violation
+  private D d = new D();
 
-              int ar1[] = null; // violation
-              int ar2[] = new int[];
-              int ar3[];
-              private Bar&lt;String&gt; bar = null; // violation
-              private Bar&lt;String&gt;[] barArray = null; // violation
+  int ar1[] = null; // violation
+  int ar2[] = new int[];
+  int ar3[];
+  private Bar&lt;String&gt; bar = null; // violation
+  private Bar&lt;String&gt;[] barArray = null; // violation
 
-              public static void main( String [] args ) {
-              }
-            }
+  public static void main( String [] args ) {
+  }
+}
           </source>
         </p>
       </subsection>
@@ -1004,22 +1005,22 @@ String nullString = null;
         <source>
 switch (i){
 case 0:
-    i++; // fall through
+  i++; // fall through
 
 case 1:
-    i++;
-    // falls through
+  i++;
+  // falls through
 case 2:
 case 3:
 case 4: {
-    i++;
+  i++;
 }
 // fallthrough
 case 5:
-    i++;
+  i++;
 /* fallthru */case 6:
-    i++
-    break;
+  i++
+  break;
 }
         </source>
         <p>
@@ -1071,7 +1072,7 @@ case 5:
         </p>
         <source>
 &lt;module name=&quot;FallThrough&quot;&gt;
-    &lt;property name=&quot;reliefPattern&quot; value=&quot;continue in next case&quot;/&gt;
+  &lt;property name=&quot;reliefPattern&quot; value=&quot;continue in next case&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -1191,7 +1192,7 @@ case 5:
         </p>
         <source>
 &lt;module name=&quot;FinalLocalVariable&quot;&gt;
-    &lt;property name=&quot;tokens&quot; value=&quot;VARIABLE_DEF,PARAMETER_DEF&quot;/&gt;
+  &lt;property name=&quot;tokens&quot; value=&quot;VARIABLE_DEF,PARAMETER_DEF&quot;/&gt;
 &lt;/module&gt;
         </source>
         <p>
@@ -1207,19 +1208,45 @@ case 5:
          An example of how to configure the check so that it also validates enhanced For Loop Variable is:
          </p>
          <source>
+&lt;module name="FinalLocalVariable"&gt;
+  &lt;property name="tokens" value="VARIABLE_DEF"/&gt;
+  &lt;property name="validateEnhancedForLoopVariable" value="true"/&gt;
+&lt;/module&gt;
+         </source>
+         <p>Example:</p>
+         <p>
+         <source>
+for (int number : myNumbers) { // violation
+  System.out.println(number);
+}
+         </source>
+         </p>
+         <p>
+         An example of how to cofigure check on local variables and parameters
+         but do not validate loop variables:
+         </p>
+         <source>
  &lt;module name="FinalLocalVariable"&gt;
-     &lt;property name="tokens" value="VARIABLE_DEF"/&gt;
-     &lt;property name="validateEnhancedForLoopVariable" value="true"/&gt;
+     &lt;property name="tokens" value="VARIABLE_DEF,PARAMETER_DEF"/&gt;
+     &lt;property name="validateEnhancedForLoopVariable" value="false"/&gt;
  &lt;/module&gt;
          </source>
          <p>Example:</p>
          <p>
          <source>
-         for (int number : myNumbers) { // violation
-             System.out.println(number);
-         }
+public class MyClass {
+  static int foo(int x, int y) { //violations, parameters should be final
+    return x+y;
+  }
+  public static void main (String []args) { //violation, parameters should be final
+    for (String i : args) {
+        System.out.println(i);
+    }
+    int result=foo(1,2); // violation
+  }
+}
          </source>
-         </p>
+        </p>
       </subsection>
 
       <subsection name="Example of Usage">
@@ -1379,7 +1406,7 @@ case 5:
         </p>
         <source>
 &lt;module name=&quot;HiddenField&quot;&gt;
-    &lt;property name=&quot;tokens&quot; value=&quot;VARIABLE_DEF&quot;/&gt;
+  &lt;property name=&quot;tokens&quot; value=&quot;VARIABLE_DEF&quot;/&gt;
 &lt;/module&gt;
         </source>
 
@@ -1389,25 +1416,25 @@ case 5:
         </p>
         <source>
 &lt;module name=&quot;HiddenField&quot;&gt;
-    &lt;property name=&quot;ignoreFormat&quot; value=&quot;^test$&quot;/&gt;
+  &lt;property name=&quot;ignoreFormat&quot; value=&quot;^test$&quot;/&gt;
 &lt;/module&gt;
         </source>
 
         <source>
 class SomeClass
 {
-    private List&lt;String&gt; test;
+  private List&lt;String&gt; test;
 
-    private void addTest(List&lt;String&gt; test) // no violation
-    {
-        this.test.addAll(test);
-    }
+  private void addTest(List&lt;String&gt; test) // no violation
+  {
+    this.test.addAll(test);
+  }
 
-    private void foo()
-    {
-        final List&lt;String&gt; test = new ArrayList&lt;&gt;(); // no violation
-        ...
-    }
+  private void foo()
+  {
+    final List&lt;String&gt; test = new ArrayList&lt;&gt;(); // no violation
+    ...
+  }
 }
         </source>
 
@@ -1416,7 +1443,7 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;HiddenField&quot;&gt;
-    &lt;property name=&quot;ignoreConstructorParameter&quot; value=&quot;true&quot;/&gt;
+  &lt;property name=&quot;ignoreConstructorParameter&quot; value=&quot;true&quot;/&gt;
 &lt;/module&gt;
         </source>
 
@@ -1426,7 +1453,7 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;HiddenField&quot;&gt;
-    &lt;property name=&quot;ignoreSetter&quot; value=&quot;true&quot;/&gt;
+  &lt;property name=&quot;ignoreSetter&quot; value=&quot;true&quot;/&gt;
 &lt;/module&gt;
         </source>
 
@@ -1437,8 +1464,8 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;HiddenField&quot;&gt;
-    &lt;property name=&quot;ignoreSetter&quot; value=&quot;true&quot;/&gt;
-    &lt;property name=&quot;setterCanReturnItsClass&quot; value=&quot;true&quot;/&gt;
+  &lt;property name=&quot;ignoreSetter&quot; value=&quot;true&quot;/&gt;
+  &lt;property name=&quot;setterCanReturnItsClass&quot; value=&quot;true&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -1512,8 +1539,8 @@ class SomeClass
             <td>illegalClassNames</td>
             <td>exception class names to reject</td>
             <td><a href="property_types.html#stringSet">String Set</a></td>
-            <td><code>&quot;java.lang.Exception,
-            java.lang.Throwable, java.lang.RuntimeException&quot;</code></td>
+            <td><code>java.lang.Throwable, RuntimeException, Error, Throwable, java.lang.Error,
+                java.lang.RuntimeException, Exception, java.lang.Exception</code></td>
             <td>3.2</td>
           </tr>
         </table>
@@ -1639,7 +1666,7 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;IllegalInstantiation&quot;&gt;
-    &lt;property name=&quot;classes&quot; value=&quot;java.lang.Boolean&quot;/&gt;
+  &lt;property name=&quot;classes&quot; value=&quot;java.lang.Boolean&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -1707,8 +1734,8 @@ class SomeClass
             <td>throw class names to reject</td>
             <td><a href="property_types.html#stringSet">String Set</a></td>
             <td>
-              <code>&quot;java.lang.Throwable,
-              java.lang.Error, java.lang.RuntimeException&quot;</code>
+              <code>java.lang.Throwable, RuntimeException, Error, Throwable, java.lang.Error,
+              java.lang.RuntimeException</code>
             </td>
             <td>4.0</td>
           </tr>
@@ -1742,7 +1769,7 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;IllegalThrows&quot;&gt;
-    &lt;property name=&quot;illegalClassNames&quot; value=&quot;NullPointerException&quot;/&gt;
+  &lt;property name=&quot;illegalClassNames&quot; value=&quot;NullPointerException&quot;/&gt;
 &lt;/module&gt;
         </source>
         <p>
@@ -1750,7 +1777,7 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;IllegalThrows&quot;&gt;
-    &lt;property name=&quot;ignoredMethodNames&quot; value=&quot;foo&quot;/&gt;
+  &lt;property name=&quot;ignoredMethodNames&quot; value=&quot;foo&quot;/&gt;
 &lt;/module&gt;
         </source>
         <p>
@@ -1758,7 +1785,7 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;IllegalThrows&quot;&gt;
-    &lt;property name=&quot;ignoreOverriddenMethods&quot; value=&quot;false&quot;/&gt;
+  &lt;property name=&quot;ignoreOverriddenMethods&quot; value=&quot;false&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -1843,7 +1870,7 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;IllegalToken&quot;&gt;
-    &lt;property name=&quot;tokens&quot; value=&quot;LITERAL_NATIVE&quot;/&gt;
+  &lt;property name=&quot;tokens&quot; value=&quot;LITERAL_NATIVE&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -1920,7 +1947,7 @@ class SomeClass
             <td>Message which is used to notify about violations;
             if empty then the default message is used.</td>
             <td><a href="property_types.html#string">String</a></td>
-            <td><code>&quot;&quot;</code>(empty)</td>
+            <td><code>&quot;&quot;</code></td>
             <td>3.2</td>
           </tr>
           <tr>
@@ -1948,8 +1975,8 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;IllegalTokenText&quot;&gt;
-    &lt;property name=&quot;tokens&quot; value=&quot;STRING_LITERAL&quot;/&gt;
-    &lt;property name=&quot;format&quot; value=&quot;a href&quot;/&gt;
+  &lt;property name=&quot;tokens&quot; value=&quot;STRING_LITERAL&quot;/&gt;
+  &lt;property name=&quot;format&quot; value=&quot;a href&quot;/&gt;
 &lt;/module&gt;
         </source>
 
@@ -1959,9 +1986,9 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;IllegalTokenText&quot;&gt;
-    &lt;property name=&quot;tokens&quot; value=&quot;NUM_INT,NUM_LONG&quot;/&gt;
-    &lt;property name=&quot;format&quot; value=&quot;^0[^lx]&quot;/&gt;
-    &lt;property name=&quot;ignoreCase&quot; value=&quot;true&quot;/&gt;
+  &lt;property name=&quot;tokens&quot; value=&quot;NUM_INT,NUM_LONG&quot;/&gt;
+  &lt;property name=&quot;format&quot; value=&quot;^0[^lx]&quot;/&gt;
+  &lt;property name=&quot;ignoreCase&quot; value=&quot;true&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -2043,23 +2070,23 @@ class SomeClass
             <td>Classes that should not be used as types in variable
             declarations, return values or parameters</td>
             <td><a href="property_types.html#stringSet">String Set</a></td>
-            <td>&quot;java.util.HashSet, java.util.HashMap, java.util.LinkedHashMap,
-            java.util.LinkedHashSet, java.util.TreeSet,
-            java.util.TreeMap&quot;</td>
+            <td>LinkedHashSet, java.util.HashSet, java.util.LinkedHashMap,
+            java.util.TreeMap, HashMap, TreeSet, java.util.HashMap, TreeMap,
+            java.util.LinkedHashSet, java.util.TreeSet, HashSet, LinkedHashMap</td>
             <td>3.2</td>
           </tr>
           <tr>
           <td>legalAbstractClassNames</td>
           <td>Abstract classes that may be used as types. </td>
           <td><a href="property_types.html#stringSet">String Set</a></td>
-          <td/>
+          <td>{}</td>
           <td>4.2</td>
         </tr>
         <tr>
             <td>ignoredMethodNames</td>
             <td>Methods that should not be checked.</td>
             <td><a href="property_types.html#stringSet">String Set</a></td>
-            <td>&quot;getInitialContext, getEnvironment&quot; </td>
+            <td>getInitialContext, getEnvironment</td>
             <td>3.2</td>
           </tr>
           <tr>
@@ -2072,8 +2099,9 @@ class SomeClass
           <tr>
             <td>memberModifiers</td>
             <td>Check methods and fields with only corresponding modifiers.</td>
-            <td><a href="property_types.html#stringSet">List of tokens</a></td>
-            <td><code>null</code></td>
+            <td>subset of tokens
+                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html">TokenTypes</a></td>
+            <td/>
             <td>6.3</td>
           </tr>
           <tr>
@@ -2101,7 +2129,7 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;IllegalType&quot;&gt;
-    &lt;property name=&quot;ignoredMethodNames&quot; value=&quot;getInstance&quot;/&gt;
+  &lt;property name=&quot;ignoredMethodNames&quot; value=&quot;getInstance&quot;/&gt;
 &lt;/module&gt;
         </source>
         <p>
@@ -2110,8 +2138,8 @@ class SomeClass
         </p>
         <source>
 &lt;module name=&quot;IllegalType&quot;&gt;
-    &lt;property name=&quot;memberModifiers&quot; value=&quot;LITERAL_PUBLIC,
-     LITERAL_PROTECTED, LITERAL_STATIC&quot;/&gt;
+  &lt;property name=&quot;memberModifiers&quot; value=&quot;LITERAL_PUBLIC,
+   LITERAL_PROTECTED, LITERAL_STATIC&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -2155,7 +2183,8 @@ class SomeClass
       <subsection name="Description">
         <p>Since Checkstyle 3.0</p>
         <p>
-          Checks for assignments in subexpressions, such as in <code>String s = Integer.toString(i = 2);</code>.
+          Checks for assignments in subexpressions, such as in
+          <code>String s = Integer.toString(i = 2);</code>.
         </p>
 
         <p>
@@ -2170,7 +2199,7 @@ class SomeClass
           <source>
 String line;
 while ((line = bufferedReader.readLine()) != null) {
-   // process the line
+  // process the line
 }
           </source>
           Assignment inside a condition is not a problem here, as the assignment is surrounded by
@@ -2192,7 +2221,7 @@ while ((line = bufferedReader.readLine()) != null) {
         </p>
         <source>
 &lt;module name=&quot;InnerAssignment&quot;&gt;
-    &lt;property name=&quot;tokens&quot; value=&quot;ASSIGN,PLUS_ASSIGN,MINUS_ASSIGN&quot;/&gt;
+  &lt;property name=&quot;tokens&quot; value=&quot;ASSIGN,PLUS_ASSIGN,MINUS_ASSIGN&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -2304,24 +2333,25 @@ static final Integer ANSWER_TO_THE_ULTIMATE_QUESTION_OF_LIFE = new Integer(42);
           </tr>
           <tr>
               <td>constantWaiverParentToken</td>
-              <td>Token that are allowed in the AST path from the number literal to the enclosing constant definition.</td>
+              <td>Token that are allowed in the AST path from the number literal to the
+                  enclosing constant definition.</td>
               <td>subset of tokens
                 <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html">TokenTypes</a>
               </td>
               <td>
-                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#ASSIGN">ASSIGN</a>,
-                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#ARRAY_INIT">ARRAY_INIT</a>,
-                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#EXPR">EXPR</a>,
-                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#UNARY_PLUS">UNARY_PLUS</a>,
-                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#UNARY_MINUS">UNARY_MINUS</a>,
                 <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#TYPECAST">TYPECAST</a>,
-                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#ELIST">ELIST</a>,
-                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#LITERAL_NEW">LITERAL_NEW</a>,
                 <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#METHOD_CALL">METHOD_CALL</a>,
+                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#EXPR">EXPR</a>,
+                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#ARRAY_INIT">ARRAY_INIT</a>,
+                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#UNARY_MINUS">UNARY_MINUS</a>,
+                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#UNARY_PLUS">UNARY_PLUS</a>,
+                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#ELIST">ELIST</a>,
                 <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#STAR">STAR</a>,
-                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#DIV">DIV</a>,
+                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#ASSIGN">ASSIGN</a>,
                 <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#PLUS">PLUS</a>,
-                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#MINUS">MINUS</a>.
+                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#MINUS">MINUS</a>,
+                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#DIV">DIV</a>,
+                <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#LITERAL_NEW">LITERAL_NEW</a>
               </td>
               <td>6.11</td>
           </tr>
@@ -2358,12 +2388,12 @@ static final Integer ANSWER_TO_THE_ULTIMATE_QUESTION_OF_LIFE = new Integer(42);
         <source>
 @MyAnnotation(6) // violation
 class MyClass {
-    private field = 7; // violation
+  private field = 7; // violation
 
-    void foo() {
-       int i = i + 1; // no violation
-       int j = j + 8; // violation
-    }
+  void foo() {
+    int i = i + 1; // no violation
+    int j = j + 8; // violation
+  }
 }
         </source>
 
@@ -2373,10 +2403,10 @@ class MyClass {
         </p>
         <source>
 &lt;module name=&quot;MagicNumber&quot;&gt;
-    &lt;property name=&quot;tokens&quot; value=&quot;NUM_DOUBLE, NUM_FLOAT&quot;/&gt;
-    &lt;property name=&quot;ignoreNumbers&quot; value=&quot;0, 0.5, 1&quot;/&gt;
-    &lt;property name=&quot;ignoreFieldDeclaration&quot; value=&quot;true&quot;/&gt;
-    &lt;property name=&quot;ignoreAnnotation&quot; value=&quot;true&quot;/&gt;
+  &lt;property name=&quot;tokens&quot; value=&quot;NUM_DOUBLE, NUM_FLOAT&quot;/&gt;
+  &lt;property name=&quot;ignoreNumbers&quot; value=&quot;0, 0.5, 1&quot;/&gt;
+  &lt;property name=&quot;ignoreFieldDeclaration&quot; value=&quot;true&quot;/&gt;
+  &lt;property name=&quot;ignoreAnnotation&quot; value=&quot;true&quot;/&gt;
 &lt;/module&gt;
         </source>
         <p>
@@ -2385,40 +2415,40 @@ class MyClass {
         <source>
 @MyAnnotation(6) // no violation
 class MyClass {
-    private field = 7; // no violation
+  private field = 7; // no violation
 
-    void foo() {
-       int i = i + 1; // no violation
-       int j = j + 8; // violation
-    }
+  void foo() {
+    int i = i + 1; // no violation
+    int j = j + 8; // violation
+  }
 }
         </source>
         <p>
         Config Example for constantWaiverParentToken Option:
         </p>
         <source>
-        &lt;module name=&quot;MagicNumber&quot;&gt;
-            &lt;property name=&quot;constantWaiverParentToken&quot; value=&quot;ASSIGN,ARRAY_INIT,EXPR,
-            UNARY_PLUS, UNARY_MINUS, TYPECAST, ELIST, DIV, PLUS &quot;/&gt;
-        &lt;/module&gt;
+&lt;module name=&quot;MagicNumber&quot;&gt;
+  &lt;property name=&quot;constantWaiverParentToken&quot; value=&quot;ASSIGN,ARRAY_INIT,EXPR,
+  UNARY_PLUS, UNARY_MINUS, TYPECAST, ELIST, DIV, PLUS &quot;/&gt;
+&lt;/module&gt;
         </source>
         <p>result is following violation:</p>
        <source>
-   class TestMethodCall {
-      public void method2() {
-           final TestMethodCall dummyObject = new TestMethodCall(62);    //violation
-           final int a = 3;        // ok as waiver is ASSIGN
-           final int [] b = {4, 5} // ok as waiver is ARRAY_INIT
-           final int c = -3;       // ok as waiver is UNARY_MINUS
-           final int d = +4;       // ok as waiver is UNARY_PLUS
-           final int e = method(1, 2) // ELIST is there but violation due to METHOD_CALL
-           final int x = 3 * 4;    // violation
-           final int y = 3 / 4;    // ok as waiver is DIV
-           final int z = 3 + 4;    // ok as waiver is PLUS
-           final int w = 3 - 4;    // violation
-           final int x = (int)(3.4);    //ok as waiver is TYPECAST
-      }
-   }
+class TestMethodCall {
+  public void method2() {
+    final TestMethodCall dummyObject = new TestMethodCall(62);    //violation
+    final int a = 3;        // ok as waiver is ASSIGN
+    final int [] b = {4, 5} // ok as waiver is ARRAY_INIT
+    final int c = -3;       // ok as waiver is UNARY_MINUS
+    final int d = +4;       // ok as waiver is UNARY_PLUS
+    final int e = method(1, 2) // ELIST is there but violation due to METHOD_CALL
+    final int x = 3 * 4;    // violation
+    final int y = 3 / 4;    // ok as waiver is DIV
+    final int z = 3 + 4;    // ok as waiver is PLUS
+    final int w = 3 - 4;    // violation
+    final int x = (int)(3.4);    //ok as waiver is TYPECAST
+  }
+}
        </source>
 
   </subsection>
@@ -2588,12 +2618,13 @@ class MyClass {
       <subsection name="Description">
         <p>Since Checkstyle 3.5</p>
         <p>
-            Check for ensuring that for loop control variables are not modified inside the for block. An example is:
+            Check for ensuring that for loop control variables are not modified inside
+            the for block. An example is:
         </p>
         <source>
-           for (int i = 0; i &lt; 1; i++) {
-             i++; //violation
-           }
+for (int i = 0; i &lt; 1; i++) {
+  i++; //violation
+}
         </source>
           <p>
             Rationale: If the control variable is modified inside the loop
@@ -2604,9 +2635,9 @@ class MyClass {
             Such loop would be suppressed:
         </p>
         <source>
-            for (int i = 0; i &lt; 10;) {
-                i++;
-            }
+for (int i = 0; i &lt; 10;) {
+  i++;
+}
         </source>
       </subsection>
 
@@ -2658,16 +2689,16 @@ class MyClass {
          An example of how to configure the check so that it skips enhanced For Loop Variable is:
          </p>
          <source>
-         &lt;module name="ModifiedControlVariable"&gt;
-             &lt;property name="skipEnhancedForLoopVariable" value="true"/&gt;
-         &lt;/module&gt;
+&lt;module name="ModifiedControlVariable"&gt;
+  &lt;property name="skipEnhancedForLoopVariable" value="true"/&gt;
+&lt;/module&gt;
          </source>
          <p>Example:</p>
          <p>
          <source>
-         for ( String line: lines ) {
-             line = line.trim();   // it will skip this violation
-         }
+for ( String line: lines ) {
+  line = line.trim();   // it will skip this violation
+}
          </source>
          </p>
       </subsection>
@@ -2762,7 +2793,6 @@ class MyClass {
             </td>
             <td>
               <code>ANNOTATION</code>
-              (ignore strings inside the context of an annotation)
             </td>
             <td>4.4</td>
           </tr>
@@ -2783,7 +2813,7 @@ class MyClass {
         </p>
         <source>
 &lt;module name=&quot;MultipleStringLiterals&quot;&gt;
-    &lt;property name=&quot;allowedDuplicates&quot; value=&quot;2&quot;/&gt;
+  &lt;property name=&quot;allowedDuplicates&quot; value=&quot;2&quot;/&gt;
 &lt;/module&gt;
         </source>
 
@@ -2792,7 +2822,7 @@ class MyClass {
         </p>
         <source>
 &lt;module name=&quot;MultipleStringLiterals&quot;&gt;
-    &lt;property name=&quot;ignoreStringsRegexp&quot; value='^((&quot;&quot;)|(&quot;, &quot;))$'/&gt;
+  &lt;property name=&quot;ignoreStringsRegexp&quot; value='^((&quot;&quot;)|(&quot;, &quot;))$'/&gt;
 &lt;/module&gt;
         </source>
 
@@ -2803,7 +2833,7 @@ class MyClass {
         </p>
         <source>
 &lt;module name=&quot;MultipleStringLiterals&quot;&gt;
-    &lt;property name=&quot;ignoreOccurrenceContext&quot; value=&quot;&quot;/&gt;
+  &lt;property name=&quot;ignoreOccurrenceContext&quot; value=&quot;&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -2952,7 +2982,7 @@ class MyClass {
         </p>
         <source>
 &lt;module name=&quot;NestedForDepth&quot;&gt;
-    &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;
+  &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -3032,7 +3062,7 @@ class MyClass {
         </p>
         <source>
 &lt;module name=&quot;NestedIfDepth&quot;&gt;
-    &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;
+  &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -3112,7 +3142,7 @@ class MyClass {
         </p>
         <source>
 &lt;module name=&quot;NestedTryDepth&quot;&gt;
-    &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;
+  &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -3483,7 +3513,7 @@ public void foo(int i, String s) {}
         <source>
 package com.puppycrawl.tools.checkstyle.checks; //Violation
 public class AnnotationLocationCheck extends AbstractCheck {
-//...
+  //...
 }
         </source>
         <p>
@@ -3500,7 +3530,7 @@ public class AnnotationLocationCheck extends AbstractCheck {
 package com.puppycrawl.tools.checkstyle.checks;  //No Violation
 
 public class AnnotationLocationCheck extends AbstractCheck {
-//...
+  //...
 }
         </source>
       </subsection>
@@ -3677,7 +3707,7 @@ public class AnnotationLocationCheck extends AbstractCheck {
         </p>
         <source>
 &lt;module name="RequireThis"&gt;
-    &lt;property name=&quot;checkMethods&quot; value=&quot;false&quot;/&gt;
+  &lt;property name=&quot;checkMethods&quot; value=&quot;false&quot;/&gt;
 &lt;/module&gt;
         </source>
 
@@ -3787,10 +3817,10 @@ class C {
   String s2 = "foo2";
 
   C() {
-      s1 = "bar1"; // Violation. Reference to instance variable 's1' needs "this.".
-      String s2;
-      s2 = "bar2"; // No violation. Local var allowed.
-      s2 += s2; // Violation. Overlapping. Reference to instance variable 's2' needs "this.".
+    s1 = "bar1"; // Violation. Reference to instance variable 's1' needs "this.".
+    String s2;
+    s2 = "bar2"; // No violation. Local var allowed.
+    s2 += s2; // Violation. Overlapping. Reference to instance variable 's2' needs "this.".
   }
 }
        </source>
@@ -3844,14 +3874,15 @@ class C {
         </p>
 
         <p>
-          <b>max</b> property will only check returns in methods and lambdas that return a specific value (Ex: 'return 1;').
+          <b>max</b> property will only check returns in methods and lambdas that return a specific
+          value (Ex: 'return 1;').
         </p>
 
         <p>
-          <b>maxForVoid</b> property will only check returns in methods, constructors, and lambdas that have no return type (IE
-          'return;').
-          It will only count visible return statements. Return statements not normally written, but implied, at
-          the end of the method/constructor definition will not be taken into account.
+          <b>maxForVoid</b> property will only check returns in methods, constructors, and lambdas
+          that have no return type (IE 'return;').
+          It will only count visible return statements. Return statements not normally written, but
+          implied, at the end of the method/constructor definition will not be taken into account.
           To disallow "return;" in void return type methods, use a value of 0.
         </p>
 
@@ -3918,7 +3949,7 @@ class C {
         </p>
         <source>
 &lt;module name=&quot;ReturnCount&quot;&gt;
-    &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;
+  &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;
 &lt;/module&gt;
         </source>
 
@@ -3928,7 +3959,7 @@ class C {
         </p>
         <source>
 &lt;module name=&quot;ReturnCount&quot;&gt;
-    &lt;property name=&quot;maxForVoid&quot; value=&quot;0&quot;/&gt;
+  &lt;property name=&quot;maxForVoid&quot; value=&quot;0&quot;/&gt;
 &lt;/module&gt;
         </source>
 
@@ -3939,8 +3970,8 @@ class C {
         </p>
         <source>
 &lt;module name=&quot;ReturnCount&quot;&gt;
-    &lt;property name=&quot;max&quot; value=&quot;2&quot;/&gt;
-    &lt;property name=&quot;maxForVoid&quot; value=&quot;1&quot;/&gt;
+  &lt;property name=&quot;max&quot; value=&quot;2&quot;/&gt;
+  &lt;property name=&quot;maxForVoid&quot; value=&quot;1&quot;/&gt;
 &lt;/module&gt;
         </source>
 
@@ -3950,8 +3981,8 @@ class C {
         </p>
         <source>
 &lt;module name=&quot;ReturnCount&quot;&gt;
-    &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;
-    &lt;property name=&quot;format&quot; value=&quot;^$&quot;/&gt;
+  &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;
+  &lt;property name=&quot;format&quot; value=&quot;^$&quot;/&gt;
 &lt;/module&gt;
         </source>
 
@@ -3962,16 +3993,16 @@ class C {
         </p>
         <source>
 &lt;module name=&quot;ReturnCount&quot;&gt;
-    &lt;property name=&quot;max&quot; value=&quot;0&quot;/&gt;
-    &lt;property name=&quot;tokens&quot; value=&quot;CTOR_DEF&quot;/&gt;
+  &lt;property name=&quot;max&quot; value=&quot;0&quot;/&gt;
+  &lt;property name=&quot;tokens&quot; value=&quot;CTOR_DEF&quot;/&gt;
 &lt;/module&gt;
 &lt;module name=&quot;ReturnCount&quot;&gt;
-    &lt;property name=&quot;max&quot; value=&quot;1&quot;/&gt;
-    &lt;property name=&quot;tokens&quot; value=&quot;LAMBDA&quot;/&gt;
+  &lt;property name=&quot;max&quot; value=&quot;1&quot;/&gt;
+  &lt;property name=&quot;tokens&quot; value=&quot;LAMBDA&quot;/&gt;
 &lt;/module&gt;
 &lt;module name=&quot;ReturnCount&quot;&gt;
-    &lt;property name=&quot;max&quot; value=&quot;2&quot;/&gt;
-    &lt;property name=&quot;tokens&quot; value=&quot;METHOD_DEF&quot;/&gt;
+  &lt;property name=&quot;max&quot; value=&quot;2&quot;/&gt;
+  &lt;property name=&quot;tokens&quot; value=&quot;METHOD_DEF&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -4087,9 +4118,9 @@ class C {
         </p>
         <source>
 if (valid())
-    return false;
+  return false;
 else
-    return true;
+  return true;
         </source>
 
         <p>
@@ -4501,7 +4532,8 @@ if (&quot;something&quot;.equals(x))
 
           <tr>
             <td>allowedDistance</td>
-            <td>A distance between declaration of variable and its first usage. Values should be greater than 0.</td>
+            <td>A distance between declaration of variable and its first usage.
+                Values should be greater than 0.</td>
             <td><a href="property_types.html#integer">Integer</a></td>
             <td>3</td>
             <td>5.8</td>
@@ -4517,7 +4549,8 @@ if (&quot;something&quot;.equals(x))
 
           <tr>
             <td>validateBetweenScopes</td>
-            <td>Allows to calculate the distance between declaration of variable and its first usage in the different scopes.</td>
+            <td>Allows to calculate the distance between declaration of variable and its
+                first usage in the different scopes.</td>
             <td><a href="property_types.html#boolean">Boolean</a></td>
             <td><code>false</code></td>
             <td>5.8</td>
@@ -4550,9 +4583,9 @@ count = b; // DECLARATION OF VARIABLE 'count'
         <source>
 int count;
 {
-     a = a + b;
-     count = b; // DECLARATION OF VARIABLE 'count'
-                // SHOULD BE HERE (distance = 2)
+  a = a + b;
+  count = b; // DECLARATION OF VARIABLE 'count'
+            // SHOULD BE HERE (distance = 2)
 }
         </source>
         <p>
@@ -4607,10 +4640,10 @@ cal.set(Calendar.MINUTE, minutes);
          </p>
          <source>
 &lt;module name="VariableDeclarationUsageDistance"&gt;
-    &lt;property name="allowedDistance" value="4"/&gt;
-    &lt;property name="ignoreVariablePattern" value="^temp.*"/&gt;
-    &lt;property name="validateBetweenScopes" value="true"/&gt;
-    &lt;property name="ignoreFinal" value="false"/&gt;
+  &lt;property name="allowedDistance" value="4"/&gt;
+  &lt;property name="ignoreVariablePattern" value="^temp.*"/&gt;
+  &lt;property name="validateBetweenScopes" value="true"/&gt;
+  &lt;property name="ignoreFinal" value="false"/&gt;
 &lt;/module&gt;
          </source>
       </subsection>
@@ -4619,16 +4652,16 @@ cal.set(Calendar.MINUTE, minutes);
           ATTENTION!! (Not supported cases)
         </p>
         <source>
- Case #1:
- {
- int c;
- int a = 3;
- int b = 2;
-     {
-     a = a + b;
-     c = b;
-     }
- }
+Case #1:
+{
+  int c;
+  int a = 3;
+  int b = 2;
+    {
+      a = a + b;
+      c = b;
+    }
+}
         </source>
         <p>
           Distance for variable 'a' = 1;
@@ -4643,15 +4676,15 @@ cal.set(Calendar.MINUTE, minutes);
            Case #2:
          </p>
          <source>
- int sum = 0;
- for (int i = 0; i &lt; 20; i++) {
-     a++;
-     b--;
-     sum++;
-     if (sum > 10) {
-         res = true;
-     }
- }
+int sum = 0;
+for (int i = 0; i &lt; 20; i++) {
+  a++;
+  b--;
+  sum++;
+  if (sum > 10) {
+    res = true;
+  }
+}
          </source>
          <p>
            Distance for variable 'sum' = 3.

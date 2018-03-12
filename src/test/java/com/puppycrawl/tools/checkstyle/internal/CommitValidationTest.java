@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -297,10 +297,13 @@ public class CommitValidationTest {
     }
 
     private enum CommitsResolutionMode {
+
         BY_COUNTER, BY_LAST_COMMIT_AUTHOR
+
     }
 
     private static class RevCommitsPair {
+
         private final Iterator<RevCommit> first;
         private final Iterator<RevCommit> second;
 
@@ -321,6 +324,7 @@ public class CommitValidationTest {
         public Iterator<RevCommit> getSecond() {
             return second;
         }
+
     }
 
     private static class OmitMergeCommitsIterator implements Iterator<RevCommit> {
@@ -349,5 +353,7 @@ public class CommitValidationTest {
         public void remove() {
             throw new UnsupportedOperationException("remove");
         }
+
     }
+
 }

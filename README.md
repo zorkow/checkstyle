@@ -20,7 +20,7 @@ checking Java source code for adherence to a Code Standard or set of validation 
 
 The latest release version can be found at [SourceForge downloads](https://sourceforge.net/projects/checkstyle/files/checkstyle/) or at [Maven repo](http://repo1.maven.org/maven2/com/puppycrawl/tools/checkstyle/).
 
-Each-commit builds of maven artifacts can be found at [Maven Snapshot repository](https://oss.sonatype.org/content/repositories/snapshots/com/puppycrawl/tools/checkstyle/).
+Each-commit builds of maven artifacts can be found at [Maven Snapshot repository](https://oss.sonatype.org/content/repositories/snapshots/com/puppycrawl/tools/checkstyle/) .
 
 Documentation is available in HTML format, see http://checkstyle.sourceforge.net/checks.html.
 
@@ -41,7 +41,7 @@ Please send any feedback to https://groups.google.com/forum/?hl=en#!forum/checks
 
 Questions and Answers from community: [![][stackoverflow img]][stackoverflow]
 
-Bugs and Feature requests (not a questions): https://github.com/checkstyle/checkstyle/issues
+Bugs and Feature requests (not the questions): https://github.com/checkstyle/checkstyle/issues
 
 Licensing
 =========
@@ -74,7 +74,7 @@ directory.
 [appveyor img]:https://ci.appveyor.com/api/projects/status/rw6bw3dl9kph6ucc?svg=true
 
 [sonar]:https://sonarcloud.io/dashboard?id=com.puppycrawl.tools%3Acheckstyle
-[sonar img]:https://sonarcloud.io/api/badges/measure?key=com.puppycrawl.tools:checkstyle&metric=sqale_debt_ratio
+[sonar img]:https://sonarcloud.io/api/project_badges/measure?project=com.puppycrawl.tools%3Acheckstyle&metric=sqale_index
 
 [codacy]:https://www.codacy.com/app/checkstyle/checkstyle
 [codacy img]:https://api.codacy.com/project/badge/3adf12d434314ba8b38277ea46d3c44b

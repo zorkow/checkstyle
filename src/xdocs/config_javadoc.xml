@@ -62,7 +62,7 @@
               <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#ENUM_DEF">ENUM_DEF</a>,
               <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#METHOD_DEF">METHOD_DEF</a>,
               <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#CTOR_DEF">CTOR_DEF</a>,
-              <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#VARIABLE_DEF">VARIABLE_DEF</a>.
+              <a href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#VARIABLE_DEF">VARIABLE_DEF</a>
             </td>
             <td>6.0</td>
           </tr>
@@ -84,11 +84,11 @@
         </p>
         <source>
 &lt;module name=&quot;AtclauseOrder&quot;&gt;
-    &lt;property name=&quot;tagOrder&quot; value=&quot;&#64;author, &#64;version, &#64;param,
-    &#64;return, &#64;throws, &#64;exception, &#64;see, &#64;since, &#64;serial,
-    &#64;serialField, &#64;serialData, &#64;deprecated&quot;/&gt;
-    &lt;property name=&quot;target&quot; value=&quot;CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
-    METHOD_DEF, CTOR_DEF, VARIABLE_DEF&quot;/&gt;
+  &lt;property name=&quot;tagOrder&quot; value=&quot;&#64;author, &#64;version, &#64;param,
+  &#64;return, &#64;throws, &#64;exception, &#64;see, &#64;since, &#64;serial,
+  &#64;serialField, &#64;serialData, &#64;deprecated&quot;/&gt;
+  &lt;property name=&quot;target&quot; value=&quot;CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
+  METHOD_DEF, CTOR_DEF, VARIABLE_DEF&quot;/&gt;
 &lt;/module>
         </source>
       </subsection>
@@ -398,8 +398,8 @@ public boolean isSomething()
         </p>
         <source>
 &lt;module name="JavadocMethod"&gt;
-   &lt;property name="scope" value="public"/&gt;
-   &lt;property name="allowUndeclaredRTE" value="true"/&gt;
+  &lt;property name="scope" value="public"/&gt;
+  &lt;property name="allowUndeclaredRTE" value="true"/&gt;
 &lt;/module&gt;
         </source>
 
@@ -418,12 +418,13 @@ public boolean isSomething()
         </source>
 
         <p>
-          To configure the check for methods which are in <code>private</code> , but not in <code>protected</code> scope:
+          To configure the check for methods which are in <code>private</code>,
+          but not in <code>protected</code> scope:
         </p>
         <source>
 &lt;module name="JavadocMethod"&gt;
-   &lt;property name="scope" value="private"/&gt;
-   &lt;property name="excludeScope" value="protected"/&gt;
+  &lt;property name="scope" value="private"/&gt;
+  &lt;property name="excludeScope" value="protected"/&gt;
 &lt;/module&gt;
         </source>
         <p>
@@ -431,7 +432,7 @@ public boolean isSomething()
         </p>
         <source>
 &lt;module name="JavadocMethod"&gt;
-   &lt;property name="ignoreMethodNamesRegex" value="^foo.*$"/&gt;
+  &lt;property name="ignoreMethodNamesRegex" value="^foo.*$"/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -545,7 +546,7 @@ public boolean isSomething()
             <td>fileExtensions</td>
             <td>file type extension of files to process</td>
             <td><a href="property_types.html#stringSet">String Set</a></td>
-            <td><code>{}</code></td>
+            <td><code>.java</code></td>
             <td>5.0</td>
           </tr>
         </table>
@@ -611,10 +612,12 @@ public boolean isSomething()
         </p>
         <ul>
           <li>
-            There is one blank line between each of two paragraphs and one blank line before the at-clauses block if it is present.
+            There is one blank line between each of two paragraphs and one blank line before the
+            at-clauses block if it is present.
           </li>
           <li>
-            Each paragraph but the first has &lt;p&gt; immediately before the first word, with no space after.
+            Each paragraph but the first has &lt;p&gt; immediately before the first word, with
+            no space after.
           </li>
         </ul>
       </subsection>
@@ -660,7 +663,7 @@ public boolean isSomething()
         </p>
         <source>
 &lt;module name=&quot;JavadocParagraph&quot;&gt;
-    &lt;property name=&quot;allowNewlineParagraph&quot; value=&quot;true&quot;/&gt;
+  &lt;property name=&quot;allowNewlineParagraph&quot; value=&quot;true&quot;/&gt;
 &lt;/module&gt;
         </source>
         <p>
@@ -908,18 +911,19 @@ public boolean isSomething()
 
         <source>
 &lt;module name="JavadocStyle"&gt;
-   &lt;property name="scope" value="public"/&gt;
+  &lt;property name="scope" value="public"/&gt;
 &lt;/module&gt;
         </source>
 
         <p>
-          To configure the check for javadoc which is in <code>private</code>, but not in <code>package</code> scope:
+          To configure the check for javadoc which is in <code>private</code>, but not in
+          <code>package</code> scope:
         </p>
 
         <source>
 &lt;module name="JavadocStyle"&gt;
-   &lt;property name="scope" value="private"/&gt;
-   &lt;property name="excludeScope" value="package"/&gt;
+  &lt;property name="scope" value="private"/&gt;
+  &lt;property name="excludeScope" value="package"/&gt;
 &lt;/module&gt;
         </source>
 
@@ -929,7 +933,7 @@ public boolean isSomething()
 
         <source>
 &lt;module name="JavadocStyle"&gt;
-   &lt;property name="checkFirstSentence" value="false"/&gt;
+  &lt;property name="checkFirstSentence" value="false"/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -1036,7 +1040,7 @@ public boolean isSomething()
         </p>
         <source>
 &lt;module name=&quot;JavadocTagContinuationIndentation&quot;&gt;
-    &lt;property name=&quot;offset&quot; value=&quot;4&quot;/&gt;
+  &lt;property name=&quot;offset&quot; value=&quot;4&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -1204,7 +1208,7 @@ public boolean isSomething()
         </p>
         <source>
 &lt;module name="JavadocType"&gt;
-   &lt;property name="scope" value="public"/&gt;
+  &lt;property name="scope" value="public"/&gt;
 &lt;/module&gt;
         </source>
 
@@ -1213,7 +1217,7 @@ public boolean isSomething()
         </p>
         <source>
 &lt;module name="JavadocType"&gt;
-   &lt;property name="authorFormat" value="\S"/&gt;
+  &lt;property name="authorFormat" value="\S"/&gt;
 &lt;/module&gt;
         </source>
 
@@ -1222,7 +1226,7 @@ public boolean isSomething()
         </p>
         <source>
 &lt;module name="JavadocType"&gt;
-   &lt;property name="versionFormat" value="\$Revision.*\$"/&gt;
+  &lt;property name="versionFormat" value="\$Revision.*\$"/&gt;
 &lt;/module&gt;
         </source>
 
@@ -1231,8 +1235,8 @@ public boolean isSomething()
         </p>
         <source>
 &lt;module name="JavadocType"&gt;
-   &lt;property name="scope" value="private"/&gt;
-   &lt;property name="excludeScope" value="package"/&gt;
+  &lt;property name="scope" value="private"/&gt;
+  &lt;property name="excludeScope" value="package"/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -1364,28 +1368,30 @@ public boolean isSomething()
 
         <source>
 &lt;module name="JavadocVariable"&gt;
-   &lt;property name="scope" value="public"/&gt;
+  &lt;property name="scope" value="public"/&gt;
 &lt;/module&gt;
         </source>
 
         <p>
-          To configure the check for members which are in <code>private</code>, but not in <code>protected</code> scope:
+          To configure the check for members which are in <code>private</code>, but not in
+          <code>protected</code> scope:
         </p>
 
         <source>
 &lt;module name="JavadocVariable"&gt;
-   &lt;property name="scope" value="private"/&gt;
-   &lt;property name="excludeScope" value="protected"/&gt;
+  &lt;property name="scope" value="private"/&gt;
+  &lt;property name="excludeScope" value="protected"/&gt;
 &lt;/module&gt;
         </source>
 
         <p>
-            To ignore absence of Javadoc comments for variables with names <code>log</code> or <code>logger</code>:
+            To ignore absence of Javadoc comments for variables with names <code>log</code> or
+            <code>logger</code>:
         </p>
 
         <source>
 &lt;module name="JavadocVariable"&gt;
-    &lt;property name="ignoreNamePattern" value="log|logger"/&gt;
+  &lt;property name="ignoreNamePattern" value="log|logger"/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -1572,7 +1578,7 @@ public boolean isSomething()
             <td>ignoredTags</td>
             <td>allows to specify at-clauses which are ignored by the check.</td>
             <td><a href="property_types.html#stringSet">String Set</a></td>
-            <td><code>null</code></td>
+            <td><code>{}</code></td>
             <td>6.8</td>
           </tr>
           <tr>
@@ -1597,8 +1603,8 @@ public boolean isSomething()
         </p>
         <source>
 &lt;module name=&quot;SingleLineJavadoc&quot;&gt;
-    &lt;property name=&quot;ignoredTags&quot; value=&quot;&#64;inheritDoc, &#64;see&quot;/&gt;
-    &lt;property name=&quot;ignoreInlineTags&quot; value=&quot;false&quot;/&gt;
+  &lt;property name=&quot;ignoredTags&quot; value=&quot;&#64;inheritDoc, &#64;see&quot;/&gt;
+  &lt;property name=&quot;ignoreInlineTags&quot; value=&quot;false&quot;/&gt;
 &lt;/module&gt;
         </source>
       </subsection>
@@ -1658,9 +1664,11 @@ public boolean isSomething()
       <subsection name="Description">
         <p>Since Checkstyle 6.0</p>
         <p>
-          Checks that <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html#firstsentence">
-          Javadoc summary sentence</a> does not contain phrases that are not recommended to use. Summaries that contain
-          only the <code>{@inheritDoc}</code> tag are skipped. Check also violate javadoc that does not contain first sentence.
+          Checks that <a
+          href="http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html#firstsentence">
+          Javadoc summary sentence</a> does not contain phrases that are not recommended to use.
+          Summaries that contain only the <code>{@inheritDoc}</code> tag are skipped. Check also
+          violate javadoc that does not contain first sentence.
         </p>
       </subsection>
 
@@ -1693,8 +1701,8 @@ public boolean isSomething()
           <tr>
             <td>period</td>
             <td>period symbol at the end of first javadoc sentence</td>
-            <td><a href="property_types.html#string">String literal</a></td>
-            <td><code>.</code></td>
+            <td><a href="property_types.html#string">String</a></td>
+            <td><code>"."</code></td>
             <td>6.2</td>
           </tr>
         </table>
@@ -1711,31 +1719,31 @@ public boolean isSomething()
           Example of <code>{@inheritDoc}</code> without summary.
         </p>
         <source>
-          <![CDATA[
-  public class Test extends Exception {
-  //Valid
-    /**
-     * {@inheritDoc}
-     */
-    public String ValidFunction(){
-      return "";
-    }
-    //Violation
-    /**
-     *
-     */
-    public String InvalidFunction(){
-      return "";
-    }
+        <![CDATA[
+public class Test extends Exception {
+//Valid
+  /**
+   * {@inheritDoc}
+   */
+  public String ValidFunction(){
+    return "";
   }
-        ]]>
+  //Violation
+  /**
+   *
+   */
+  public String InvalidFunction(){
+    return "";
+  }
+}
+      ]]>
         </source>
         <p>
           To ensure that summary do not contain phrase like "This method returns" , use following config:
         </p>
         <source>
 &lt;module name=&quot;SummaryJavadocCheck&quot;&gt;
-    &lt;property name=&quot;forbiddenSummaryFragments&quot; value=&quot;^This method returns.*&quot;/&gt;
+  &lt;property name=&quot;forbiddenSummaryFragments&quot; value=&quot;^This method returns.*&quot;/&gt;
 &lt;/module&gt;
         </source>
         <p>
@@ -1743,7 +1751,7 @@ public boolean isSomething()
         </p>
         <source>
 &lt;module name=&quot;SummaryJavadocCheck&quot;&gt;
-    &lt;property name=&quot;period&quot; value="。"/&gt;
+  &lt;property name=&quot;period&quot; value="。"/&gt;
 &lt;/module&gt;
         </source>
         <p>
@@ -1752,16 +1760,16 @@ public boolean isSomething()
 
         <source><![CDATA[
 public class TestClass {
-   /**
-    * This is invalid java doc.
-    */
-    void invalidJavaDocMethod() {
-    }
-   /**
-    * This is valid java doc。
-    */
-    void validJavaDocMethod() {
-    }
+  /**
+  * This is invalid java doc.
+  */
+  void invalidJavaDocMethod() {
+  }
+  /**
+  * This is valid java doc。
+  */
+  void validJavaDocMethod() {
+  }
 }
         ]]></source>
      </subsection>
@@ -1828,8 +1836,8 @@ public class TestClass {
       <subsection name="Description">
         <p>Since Checkstyle 4.2</p>
         <p>
-         Requires user defined JavaDoc tag to be present in javadoc comment with defined format. To define the
-         format for a tag, set property tagFormat to a regular
+         Requires user defined JavaDoc tag to be present in javadoc comment with
+         defined format. To define the format for a tag, set property tagFormat to a regular
          expression. Property tagSeverity is used for severity of events when the tag exists.
         </p>
       </subsection>
@@ -1895,8 +1903,8 @@ public class TestClass {
 
         <source>
 &lt;module name="WriteTag"&gt;
-   &lt;property name="tag" value="@author"/&gt;
-   &lt;property name="tagFormat" value="\S"/&gt;
+  &lt;property name="tag" value="@author"/&gt;
+  &lt;property name="tagFormat" value="\S"/&gt;
 &lt;/module&gt;
         </source>
 
@@ -1907,10 +1915,10 @@ public class TestClass {
 
         <source>
 &lt;module name="WriteTag"&gt;
-   &lt;property name="tag" value="@incomplete"/&gt;
-   &lt;property name="tagFormat" value="\S"/&gt;
-   &lt;property name="severity" value="ignore"/&gt;
-   &lt;property name="tagSeverity" value="warning"/&gt;
+  &lt;property name="tag" value="@incomplete"/&gt;
+  &lt;property name="tagFormat" value="\S"/&gt;
+  &lt;property name="severity" value="ignore"/&gt;
+  &lt;property name="tagSeverity" value="warning"/&gt;
 &lt;/module&gt;
         </source>
       </subsection>

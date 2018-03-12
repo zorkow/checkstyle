@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -395,10 +395,10 @@ public class FallThroughCheck extends AbstractCheck {
         boolean matches = false;
 
         if (matcher.find()) {
-            // -1 because it returns the char position beyond the match
             matches = getFileContents().hasIntersectionWithComment(lineNo, matcher.start(),
-                    lineNo, matcher.end() - 1);
+                    lineNo, matcher.end());
         }
         return matches;
     }
+
 }

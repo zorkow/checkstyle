@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -35,7 +35,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.AuditListener;
 import com.puppycrawl.tools.checkstyle.api.AutomaticBean;
-import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 import com.puppycrawl.tools.checkstyle.api.SeverityLevel;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
@@ -52,6 +51,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 public class XMLLogger
     extends AutomaticBean
     implements AuditListener {
+
     /** Decimal radix. */
     private static final int BASE_10 = 10;
 
@@ -103,7 +103,7 @@ public class XMLLogger
     }
 
     @Override
-    protected void finishLocalSetup() throws CheckstyleException {
+    protected void finishLocalSetup() {
         // No code by default
     }
 
@@ -240,14 +240,16 @@ public class XMLLogger
      * @param throwable The
      */
     private void writeException(Throwable throwable) {
+        writer.println("<exception>");
+        writer.println("<![CDATA[");
+
         final StringWriter stringWriter = new StringWriter();
         final PrintWriter printer = new PrintWriter(stringWriter);
-        printer.println("<exception>");
-        printer.println("<![CDATA[");
         throwable.printStackTrace(printer);
-        printer.println("]]>");
-        printer.println("</exception>");
         writer.println(encode(stringWriter.toString()));
+
+        writer.println("]]>");
+        writer.println("</exception>");
     }
 
     /**
@@ -342,6 +344,7 @@ public class XMLLogger
      * The registered file messages.
      */
     private static class FileMessages {
+
         /** The file error events. */
         private final List<AuditEvent> errors = Collections.synchronizedList(new ArrayList<>());
 
@@ -379,5 +382,7 @@ public class XMLLogger
         public void addException(Throwable throwable) {
             exceptions.add(throwable);
         }
+
     }
+
 }

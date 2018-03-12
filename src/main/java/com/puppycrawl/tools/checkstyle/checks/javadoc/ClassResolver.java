@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -90,9 +90,7 @@ public class ClassResolver {
                         clazz = resolveByStarImports(name);
                         // -@cs[NestedIfDepth] it is better to have single return point from method
                         if (clazz == null) {
-                            // Giving up, the type is unknown, so load the class to generate an
-                            // exception
-                            clazz = safeLoad(name);
+                            throw new ClassNotFoundException(name);
                         }
                     }
                 }
@@ -134,7 +132,6 @@ public class ClassResolver {
                 if (clazz != null) {
                     break;
                 }
-
             }
         }
         return clazz;
@@ -244,4 +241,5 @@ public class ClassResolver {
         }
         return classObj;
     }
+
 }

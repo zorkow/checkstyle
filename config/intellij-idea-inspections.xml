@@ -1017,10 +1017,10 @@ isolated classes and we cannot put them to separate package as it will affect us
     <inspection_tool class="IOResource" enabled="true" level="WARNING" enabled_by_default="true">
         <scope name="Production" level="WARNING" enabled="true">
             <option name="ignoredTypesString" value="java.io.ByteArrayOutputStream,java.io.ByteArrayInputStream,java.io.StringBufferInputStream,java.io.CharArrayWriter,java.io.CharArrayReader,java.io.StringWriter,java.io.StringReader" />
-            <option name="insideTryAllowed" value="false" />
+            <option name="insideTryAllowed" value="true" />
         </scope>
         <option name="ignoredTypesString" value="java.io.ByteArrayOutputStream,java.io.ByteArrayInputStream,java.io.StringBufferInputStream,java.io.CharArrayWriter,java.io.CharArrayReader,java.io.StringWriter,java.io.StringReader" />
-        <option name="insideTryAllowed" value="false" />
+        <option name="insideTryAllowed" value="true" />
     </inspection_tool>
     <!-- till we switch to jacoco we cannot use this as it conflicts with policy of 100% coverage -->
     <inspection_tool class="IfCanBeSwitch" enabled="false" level="ERROR" enabled_by_default="false" />
@@ -2148,6 +2148,9 @@ isolated classes and we cannot put them to separate package as it will affect us
                 <option value="ClassIndependentOfModule" />
                 <!-- till #4870, used in MT check markers -->
                 <option value="unused" />
+                <!-- XDocs UT is very long and complex -->
+                <option value="OverlyComplexBooleanExpression" />
+                <option value="ReuseOfLocalVariable" />
             </list>
         </option>
     </inspection_tool>
@@ -2497,7 +2500,8 @@ isolated classes and we cannot put them to separate package as it will affect us
     <inspection_tool class="WaitOrAwaitWithoutTimeout" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="WaitWhileHoldingTwoLocks" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="WaitWithoutCorrespondingNotify" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="WeakerAccess" enabled="true" level="WARNING" enabled_by_default="false">
+    <!-- till https://youtrack.jetbrains.com/issue/IDEA-187208 -->
+    <inspection_tool class="WeakerAccess" enabled="false" level="WARNING" enabled_by_default="false">
         <scope name="Production" level="WARNING" enabled="true">
           <option name="SUGGEST_PACKAGE_LOCAL_FOR_MEMBERS" value="false" />
           <option name="SUGGEST_PACKAGE_LOCAL_FOR_TOP_CLASSES" value="false" />

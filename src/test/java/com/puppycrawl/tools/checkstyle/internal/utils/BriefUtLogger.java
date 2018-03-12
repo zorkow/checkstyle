@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2017 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -35,11 +35,13 @@ public class BriefUtLogger extends DefaultLogger {
      * @param out output stream for info messages and errors.
      */
     public BriefUtLogger(OutputStream out) {
-        super(out, true, out, false, new AuditEventUtFormatter());
+        super(out, OutputStreamOptions.CLOSE, out,
+                OutputStreamOptions.NONE, new AuditEventUtFormatter());
     }
 
     @Override
     public void auditStarted(AuditEvent event) {
         //has to NOT log audit started event
     }
+
 }
