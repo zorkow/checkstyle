@@ -52,6 +52,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * <p>Check have following options:
  * ignoreHashCodeMethod - ignore magic numbers in hashCode methods;
  * ignoreAnnotation - ignore magic numbers in annotation declarations;
+ * ignoreTestAnnotation - ignore magic numbers in test annotation declarations;
  * ignoreFieldDeclaration - ignore magic numbers in field declarations.
  * <p>
  * To configure the check with default configuration:
@@ -85,6 +86,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  *       &lt;property name=&quot;ignoreNumbers&quot; value=&quot;0, 0.5, 1&quot;/&gt;
  *       &lt;property name=&quot;ignoreFieldDeclaration&quot; value=&quot;true&quot;/&gt;
  *       &lt;property name=&quot;ignoreAnnotation&quot; value=&quot;true&quot;/&gt;
+ *       &lt;property name=&quot;ignoreTestAnnotation&quot; value=&quot;true&quot;/&gt;
  *   &lt;/module&gt;
  * </pre>
  * <p>
@@ -176,6 +178,9 @@ public class MagicNumberCheck extends AbstractCheck {
     /** Whether to ignore magic numbers in annotation. */
     private boolean ignoreAnnotation;
 
+    /** Whether to ignore magic numbers in test annotation. */
+    private boolean ignoreTestAnnotation;
+
     /** Whether to ignore magic numbers in field declaration. */
     private boolean ignoreFieldDeclaration;
 
@@ -209,7 +214,8 @@ public class MagicNumberCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-        if ((!ignoreAnnotation || !isChildOf(ast, TokenTypes.ANNOTATION))
+        if ((!ignoreTestAnnotation || !isInTestAnnotation(ast))
+                && (!ignoreAnnotation || !isChildOf(ast, TokenTypes.ANNOTATION))
                 && !isInIgnoreList(ast)
                 && (!ignoreHashCodeMethod || !isInHashCodeMethod(ast))) {
             final DetailAST constantDefAST = findContainingConstantDef(ast);
@@ -422,6 +428,41 @@ public class MagicNumberCheck extends AbstractCheck {
     }
 
     /**
+     * Set whether to ignore Test Annotations.
+     * @param ignoreTestAnnotation decide whether to ignore annotations
+     */
+    public void setIgnoreTestAnnotation(boolean ignoreTestAnnotation) {
+        this.ignoreTestAnnotation = ignoreTestAnnotation;
+    }
+
+    /**
+     * Determines if the column displays a token type of annotation or
+     * annotation member.
+     *
+     * @param ast the AST from which to search for annotations
+     *
+     * @return {@code true} if the token type for this node is a annotation
+     */
+    private boolean isInTestAnnotation(DetailAST ast) {
+        boolean result = false;
+        final DetailAST methodDef = findContainingMethod(ast);
+        if (methodDef != null) {
+            final DetailAST modifiersNode = methodDef.findFirstToken(TokenTypes.MODIFIERS);
+            if (modifiersNode != null) {
+                final DetailAST annotationNode =
+                    modifiersNode.findFirstToken(TokenTypes.ANNOTATION);
+                if (annotationNode != null && annotationNode.getFirstChild() != null) {
+                    final DetailAST testNode = annotationNode.getFirstChild().getNextSibling();
+                    if (testNode != null) {
+                        result = testNode.getText().equals("Test");
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * Set whether to ignore magic numbers in field declaration.
      * @param ignoreFieldDeclaration decide whether to ignore magic numbers
      *     in field declaration
@@ -450,6 +491,20 @@ public class MagicNumberCheck extends AbstractCheck {
         } while (node != null);
 
         return result;
+    }
+
+    /**
+     * Searches the tree towards the root until it finds a CLASS_DEF node.
+     * @param ast the start node for searching
+     * @return the METHOD_DEF node.
+     */
+    private DetailAST findContainingMethod(DetailAST ast) {
+        DetailAST searchAST = ast;
+        while (searchAST != null
+               && searchAST.getType() != TokenTypes.METHOD_DEF) {
+            searchAST = searchAST.getParent();
+        }
+        return searchAST;
     }
 
 }

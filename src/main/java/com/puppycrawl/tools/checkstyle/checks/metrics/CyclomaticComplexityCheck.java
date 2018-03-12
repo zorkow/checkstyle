@@ -60,7 +60,7 @@ public class CyclomaticComplexityCheck
     private static final BigInteger INITIAL_VALUE = BigInteger.ONE;
 
     /** Default allowed complexity. */
-    private static final int DEFAULT_COMPLEXITY_VALUE = 10;
+    private static final int DEFAULT_COMPLEXITY_VALUE = 12;
 
     /** Stack of values - all but the current value. */
     private final Deque<BigInteger> valueStack = new ArrayDeque<>();
