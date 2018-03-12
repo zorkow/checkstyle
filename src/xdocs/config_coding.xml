@@ -2289,6 +2289,13 @@ static final Integer ANSWER_TO_THE_ULTIMATE_QUESTION_OF_LIFE = new Integer(42);
             <td>5.4</td>
           </tr>
           <tr>
+            <td>ignoreTestAnnotation</td>
+            <td>ignore magic numbers in test annotation declarations.</td>
+            <td><a href="property_types.html#boolean">Boolean</a></td>
+            <td><span class="default">false</span></td>
+            <td>5.4</td>
+          </tr>
+          <tr>
               <td>ignoreFieldDeclaration</td>
               <td>ignore magic numbers in field declarations.</td>
               <td><a href="property_types.html#boolean">Boolean</a></td>
